@@ -1,0 +1,203 @@
+﻿@page
+@model SettingsPageModel
+@{
+    ViewData["Title"] = "Settings";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-students-tab" data-bs-toggle="pill" data-bs-target="#v-pills-students" type="button" role="tab" aria-controls="v-pills-students" aria-selected="false">
+            Students
+        </button>
+        <button class="nav-link" id="v-pills-classes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classes" type="button" role="tab" aria-controls="v-pills-classes" aria-selected="false">
+            Classes
+        </button>
+        <button class="nav-link" id="v-pills-inventory-tab" data-bs-toggle="pill" data-bs-target="#v-pills-inventory" type="button" role="tab" aria-controls="v-pills-inventory" aria-selected="false">
+            Inventory
+        </button>
+
+        @*
+            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+            School Settings
+        </button>
+
+        *@
+
+    </div>
+
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-students" role="tabpanel" aria-labelledby="v-pills-students-tab">
+            <partial name="_StudentList" model="@Model" />
+        </div>
+        <div class="tab-pane fade" id="v-pills-classes" role="tabpanel" aria-labelledby="v-pills-classes-tab">
+            <partial name="Class/_ClassList" model="@Model" />
+        </div>
+        <div class="tab-pane fade" id="v-pills-inventory" role="tabpanel" aria-labelledby="v-pills-inventory-tab">
+            <partial name="Inventory/_Inventory" model="@Model" />
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <partial name="_SchoolSettings" />
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+<script>
+    $(function () {
+
+        // Student 
+        $('#newStudentBtn').click(function () {
+            $('#newStudentModal').modal('show');
+        });
+
+        $('#newStudentFormBtn').click(function () {
+
+            var studentDDLVal = $('#studentClass').val();
+            var studentNameFieldVal = $('#studentClass').val();
+
+            if (studentDDLVal !== 'Select a class...' && studentNameFieldVal.length > 0) {
+                $('#new-student-form').submit();
+
+            } else {
+                alert('Error: Must Enter name and select a class');
+            }
+
+        });
+
+
+        // Class
+        $('#newClassBtn').click(function () {
+            $('#newClassModal').modal('show');
+        });
+
+        $('#newClassFormBtn').click(function () {
+
+            var classNameFieldVal = $('#className').val();
+
+            if (classNameFieldVal.length > 0) {
+                $('#new-class-form').submit();
+
+            } else {
+                alert('Must enter a class name');
+            }
+        });
+
+        $('.edit-class-item').click(function () {
+
+            var formId = $(this).val();
+            var selectedClassItemModalId = "#edit-class-modal-" + formId;
+
+            $(selectedClassItemModalId).modal('show');
+        });
+
+
+        $('.edit-class-submit-btn').click(function () {
+
+            var formId = $(this).val();
+            var classNameFieldVal = $('#className-' + formId).val();
+ 
+            if (classNameFieldVal.length > 0) {
+                $('#edit-class-form-' + formId).submit();
+            } else {
+                alert('Error: Must Enter class name');
+            }
+
+        });
+
+
+        // Inventory Type
+
+        $('#newInventoryTypeBtn').click(function () {
+            $('#inventory-type-modal').modal('show');
+        });
+
+
+        $('#enter-inventory-type-btn').click(function () {
+
+            var $addInventoryTypeBtn = $(this);
+
+            var inventoryTypeFormId = '#new-inventory-type-group';
+            $(inventoryTypeFormId).toggle();
+
+
+            if ($addInventoryTypeBtn.text() === 'Enter New Type') {
+                $addInventoryTypeBtn.text("Cancel New Type");
+            } else {
+                $addInventoryTypeBtn.text("Enter New Type");
+            }
+
+        });
+
+
+        $('#update-inventory-item-type-btn').click(function () {
+
+            var inputValue = $('#new-inventory-type-input').val();
+            var enterInventoryTypeText = $('#enter-inventory-type-btn').text();
+
+
+            if (enterInventoryTypeText === 'Cancel New Type') {
+                if (inputValue.length === 0) {
+                    alert('Inventory Type Name cannot be empty')
+                } else {
+                    $('#new-inventory-type-form').submit();
+                }
+            } else {
+                $('#inventory-type-modal').modal('hide');
+            }
+        });
+
+
+        // Inventory
+        $('#newInventoryItemBtn').click(function () {
+            $('#new-inventory-item-modal').modal('show');
+        });
+
+        $('#new-inventory-item-btn').click(function () {
+
+            var typeDDLVal = $('#item-type-input').val();
+            var inventoryNameFieldVal = $('#item-name-input').val();
+            var inventoryQuantityFieldVal = $('#item-quantity-input').val(); 
+            var inventoryUnitCostFieldVal = $('#item-unit-cost-input').val(); 
+            var inventorySellingPriceFieldVal = $('#item-selling-price-input').val();
+
+            if (typeDDLVal !== 'Select a type...' && inventoryNameFieldVal.length > 0 && inventoryQuantityFieldVal > 0 && inventoryUnitCostFieldVal > 0 && inventorySellingPriceFieldVal > 0) {
+                $('#new-inventory-item-form').submit();
+            } else {
+                alert('Error: Must Enter all fields');
+            } 
+
+        });
+
+        $('.edit-inventory-item').click(function () {
+
+            var selectedInventoryItemId = $(this).val();
+            var selectedInventoryItemModalId = "#edit-inventory-item-modal-" + selectedInventoryItemId;
+
+            $(selectedInventoryItemModalId).modal('show');
+        });
+
+
+        $('.edit-inventory-item-submit-btn').click(function () {
+
+            var formId = $(this).val();
+
+            var typeDDLVal = $('#item-type-input-' + formId).val();
+            var inventoryNameFieldVal = $('#item-name-input-' + formId).val();
+            var inventoryQuantityFieldVal = $('#item-quantity-input-' + formId).val();
+            var inventoryUnitCostFieldVal = $('#item-unit-cost-input-' + formId).val();
+            var inventorySellingPriceFieldVal = $('#item-selling-price-input-' + formId).val();
+
+            if (typeDDLVal !== 'Select a type...' && inventoryNameFieldVal.length > 0 && inventoryQuantityFieldVal > 0 && inventoryUnitCostFieldVal > 0 && inventorySellingPriceFieldVal > 0) {
+                $('#edit-inventory-item-form-' + formId).submit();
+            } else {
+                alert('Error: Must Enter all fields');
+            } 
+            
+        });
+
+    });
+</script>
+
+}

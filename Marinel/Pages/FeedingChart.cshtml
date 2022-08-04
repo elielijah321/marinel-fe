@@ -1,0 +1,240 @@
+﻿@page
+@model SchoolDraftWebsite.Pages.FeedingChartPageModel
+@{
+    ViewData["Title"] = "Feeding Chart";
+    var Id = "new";
+}
+
+<div class="d-flex align-items-start">
+
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+        @foreach (var year in Model.Years)
+        {
+            <button class="@(year == Model.CurrentYear ? "nav-link active": "nav-link")" id="v-pills-@year-tab" data-bs-toggle="pill" data-bs-target="#v-pills-@year" type="button" role="tab" aria-controls="v-pills-@year" aria-selected="false">
+                @year
+            </button>
+        }
+    </div>
+    <div class="tab-content" id="v-pills-tabContent">
+
+        <button id="newFeedingItem" type="button" class="btn btn-success newFeedingItem">Add New Items</button>
+
+        @foreach (var year in Model.Years)
+        {
+            var test = Model.FeedingTerms.TryGetValue(year, out List<SchoolDraftWebsite.Data.Entities.FeedingInfoItem> feedingItems);
+
+            <div class="@(year == Model.CurrentYear ? "tab-pane fade show active" : "tab-pane fade show")" id="v-pills-@year" role="tabpanel" aria-labelledby="v-pills-@year-tab">
+                <partial name="Feeding/_FeedingChartTerms" model="feedingItems" />
+            </div>
+        }
+    </div>
+</div>
+
+<div id="newFeedingItemModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Feeding Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-feeding-item-form" method="post">
+
+                    <input id="form-id" name="form-id" type="hidden" value="@Id" />
+
+                    <div class="form-group">
+                        <label for="feeding-date-@Id" class="form-label">Date</label>
+                        <input type="date" class="form-control feeding-date" id="feeding-date-@Id" name="feeding-date-@Id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num-of-students-@Id" class="form-label">Number of Students</label>
+                        <input type="number" class="form-control" id="num-of-students-@Id" name="num-of-students-@Id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total-collected-@Id" class="form-label">Total Collected (₵)</label>
+                        <input type="number" class="form-control" id="total-collected-@Id" name="total-collected-@Id">
+                    </div>
+
+                    <table id="feeding-expenses-table-@Id" class="table" style="display:none;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Expense Amount</th>
+                                <th scope="col">Expense Reason</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-body-@Id">
+                        </tbody>
+                    </table>
+
+                    <div id="feeding-expense-group-@Id" class="feeding-expense-group" style="display:none;">
+
+                        <div class="form-group">
+                            <label for="extra-expenditure-amount-@Id" class="form-label">Extra Expenditure (₵)</label>
+                            <input type="number" class="form-control" id="extra-expenditure-amount-@Id" name="extra-expenditure-amount-@Id">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="extra-expenditure-reason-@Id" class="form-label">Reason For Expenditure</label>
+                            <input type="text" class="form-control" id="extra-expenditure-reason-@Id" name="extra-expenditure-reason-@Id">
+                        </div>
+                        <button class="btn btn-success update-expense-btn" value="@Id">Add Expense</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:left;">
+                        <button id="enter-expense-btn-@Id" type="button" class="btn btn-warning enter-expense-btn" value="@Id">Enter Expense</button>
+                    </div>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success submit-feeding-item-form" value="@Id">Save changes</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+
+    <script>
+        $(function () {
+
+            $.fn.removeFeedingExpense = function (value) {
+
+                var values = value.split(',');
+
+                var rowId = values[0];
+                var expenseId = values[1];
+
+                var expenseItemRowId = "#expense-item-row-" + rowId;
+                var expenseHiddenRowId = "#hidden-feeding-expense-" + expenseId + "-" + rowId;
+
+                $(expenseItemRowId).remove();
+                $(expenseHiddenRowId).remove();
+
+                var numOfExpenseItems = $('.expense-items-' + expenseId).length;
+
+                console.log(numOfExpenseItems);
+
+                if (numOfExpenseItems === 0)
+                {
+                    $('#feeding-expenses-table-' + expenseId).css("display", "none");
+                }
+            }
+
+            // Feeding Item
+            $('.newFeedingItem').click(function () {
+                $('#newFeedingItemModal').modal('show');
+            });
+
+            // default datepicker to today 
+            var todaysDate = new Date().toISOString().split('T')[0];
+            $('#feeding-date-new').val(todaysDate);
+
+            $('.submit-feeding-item-form').click(function () {
+
+                var formId = $(this).val();
+
+                var feedingDateVal = $('#feeding-date-' + formId).val();
+                var totalCollectedVal = $('#total-collected-' + formId).val();
+                var numOfStudentsVal = $('#num-of-students-' + formId).val();
+
+                if (feedingDateVal.length === 0 || totalCollectedVal.length === 0 || numOfStudentsVal.length === 0) {
+                    alert('Error must fill in all fields');
+                } else {
+                    $('#new-feeding-item-form').submit();
+                }
+            });
+
+            $('.edit-feeding-item-form').click(function () {
+
+                var formId = $(this).val();
+                $('#edit-feeding-item-form-' + formId).submit();
+            });
+
+            $('.enter-expense-btn').click(function () {
+
+                var $enterExpenseBtn = $(this);
+                var expenseFormId = '#feeding-expense-group-' + $enterExpenseBtn.val();
+
+                $(expenseFormId).toggle();
+
+                if ($enterExpenseBtn.text() === 'Enter Expense') {
+                    $enterExpenseBtn.text("Cancel Expense");
+                } else {
+                    $enterExpenseBtn.text("Enter Expense");
+                }
+            });
+
+            $('.update-expense-btn').click(function (e) {
+                e.preventDefault();
+
+                var id = $(this).val();
+
+                var expenseClass = "expense-items-" + id;
+                var numOfExpenseItems = $('.' + expenseClass).length;
+
+                var $expenseAmountObj = $('#extra-expenditure-amount-' + id);
+                var $expenseReasonObj = $('#extra-expenditure-reason-' + id);
+
+                if ($expenseAmountObj.val().length === 0 || $expenseReasonObj.val().length === 0) {
+                    alert('Must enter an amount and reason');
+                    return;
+                }
+
+                var expenseItemRowId = "expense-item-row-" + numOfExpenseItems;
+                var expenseAmountRowName = "expense-amount-" + numOfExpenseItems;
+                var expenseReasonRowName = "expense-reason-" + numOfExpenseItems;
+
+                var expenseHiddenRowName = "hidden-feeding-expense-" + id + "-" + numOfExpenseItems;
+
+                var expenseHiddenValue = $expenseAmountObj.val() + "," + $expenseReasonObj.val();
+
+                var expenseAmount = "<td name='" + expenseAmountRowName +"'>" + $expenseAmountObj.val() + "</td>";
+                var expenseReason = "<td name='" + expenseReasonRowName + "'>" + $expenseReasonObj.val() + "</td>";
+
+                var expenseCancelArguments = numOfExpenseItems + "," + id;
+                var expenseCancel = "<td onClick=$.fn.removeFeedingExpense('" + expenseCancelArguments +"'); >" + "x" + "</td>";
+
+                var newRow = "<tr id='" + expenseItemRowId + "' class='" + expenseClass +"'> " + expenseAmount + expenseReason + expenseCancel + "</tr>";
+                var newHiddenRow = "<input id='" + expenseHiddenRowName +"' name='" + expenseHiddenRowName + "' type='hidden' value='" + expenseHiddenValue +"' />";
+
+                var expenseBodyId = "#expenses-body-" + id;
+                var feedingItemFormId = id === "new" ? "#new-feeding-item-form" : "#edit-feeding-item-form-" + id;
+
+                var feedingExpenseGroup = "#feeding-expense-group-" + id;
+                var enterExpenseBtn = "#enter-expense-btn-" + id;
+
+                var feedingExpenseTable = "#feeding-expenses-table-" + id;
+
+                $(expenseBodyId).append(newRow);
+                $(feedingItemFormId).append(newHiddenRow);
+
+                $expenseAmountObj.val("");
+                $expenseReasonObj.val("");
+
+                $(feedingExpenseGroup).toggle();
+                $(enterExpenseBtn).text("Enter Expense");
+
+                $(feedingExpenseTable).css("display", "table");
+            });
+
+            $('.edit-feeding-info-item').click(function () {
+
+                var selectedFedingItemId = $(this).val();
+                var selectedFedingItemModalId = "#edit-feeding-item-modal-" + selectedFedingItemId;
+
+                $(selectedFedingItemModalId).modal('show');
+            });
+        });
+    </script>
+}

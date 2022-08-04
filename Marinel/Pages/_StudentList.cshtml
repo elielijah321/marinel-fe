@@ -1,0 +1,63 @@
+﻿@model SchoolDraftWebsite.Pages.SettingsPageModel
+
+<button id="newStudentBtn" type="button" class="btn btn-success">Add New Student</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Class</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.Class.Name</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div id="newStudentModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-student-form" method="post">
+
+                    <input type="hidden" name="form-type" value="student" />
+
+                    <div class="form-group">
+                        <label for="studentName" class="form-label">Student Name</label>
+                        <input type="text" class="form-control" id="studentName" name="studentName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentClass" class="form-label">Class</label>
+                        <select id="studentClass" name="studentClass" class="form-select" aria-label="Default select example">
+                            <option selected>Select a class...</option>
+                            @{
+                                foreach (var student_class in Model.Classes)
+                                {
+                                    <option value="@student_class.Name">@student_class.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="newStudentFormBtn" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

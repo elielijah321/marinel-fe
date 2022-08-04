@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SchoolDraftWebsite.Data.Entities.InventoryType>;
+
+<div id="inventory-type-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Inventory Types</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var inventoryType in Model)
+                            {
+                                <tr>
+                                    <td>@inventoryType.Name</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+                <form id="new-inventory-type-form" method="post">
+
+                    <input type="hidden" name="form-type" value="inventory-type" />
+
+                    <div id="new-inventory-type-group" class="new-inventory-type-group" style="display:none;">
+
+                        <div class="form-group">
+                            <label for="new-inventory-type" class="form-label">Inventory Type Name</label>
+                            <input type="text" class="form-control" id="new-inventory-type-input" name="new-inventory-type-input">
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:left;">
+                        <button id="enter-inventory-type-btn" type="button" class="btn btn-warning enter-expense-btn">Enter New Type</button>
+                    </div>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="update-inventory-item-type-btn" type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

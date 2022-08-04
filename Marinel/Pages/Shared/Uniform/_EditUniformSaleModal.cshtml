@@ -1,0 +1,172 @@
+﻿@model SchoolDraftWebsite.Pages.UniformPageData;
+@using SchoolDraftWebsite.Helpers;
+
+
+@{
+    foreach (var uniformItem in Model.UniformListSales)
+    {
+
+        foreach (var item in uniformItem.Item2)
+        {
+            <div id="edit-uniform-modal-@item.Id" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit uniform sale</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-uniform-sale-form-@item.Id" method="post">
+
+                                <input id="form-type" name="form-type" type="hidden" value="edit-uniform-sale" />
+                                <input id="form-id" name="form-id" type="hidden" value="@item.Id" />
+
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-sale-date-@item.Id" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="edit-uniform-sale-date-@item.Id" name="edit-uniform-sale-date-@item.Id" value="@DateTimeHelper.ToYearMonthDay(item.Date)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-type-@item.Id" class="form-label">Uniform Type</label>
+                                    <select id="edit-uniform-type-@item.Id" name="edit-uniform-type-@item.Id" class="form-select" aria-label="edit-uniform-type-@item.Id">
+                                        @{
+
+                                            <option value="@item.InventoryItem.Id">@item.InventoryItem.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-quantity-@item.Id" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" id="edit-uniform-quantity-@item.Id" name="edit-uniform-quantity-@item.Id" value="@item.Quantity">
+                                </div>
+
+                                <div class="form-group" aria-label="@item.Id">
+                                    <label for="edit-uniform-class-@item.Id" class="form-label">Class</label>
+                                    <select id="edit-uniform-class-@item.Id" name="edit-uniform-class-@item.Id" class="form-select edit-uniform-class">
+                                        <option value="Select a class..." selected>Select a class...</option>
+
+                                        @{
+                                            foreach (var _class in Model.Classes)
+                                            {
+                                                if (item.Student.ClassId == _class.Id)
+                                                {
+                                                    <option value="@_class.Id" selected>@_class.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@_class.Id">@_class.Name</option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-student-@item.Id" class="form-label">Student</label>
+                                    <select id="edit-uniform-student-@item.Id" name="edit-uniform-student-@item.Id" class="form-select" aria-label="edit-uniform-student-@item.Id">
+                                        <option value="Select a student...">Select a student...</option>
+
+                                        @{
+                                            var classMates = item.Student.Class.Students;
+
+                                            foreach (var student in classMates)
+                                            {
+                                                if (item.StudentId == student.Id)
+                                                {
+                                                    <option value="@student.Id" selected>@student.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@student.Id" selected>@student.Name</option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-received-@item.Id" class="form-label">Received</label>
+                                    <div class="form-check form-check-inline">
+                                        @{
+                                            if (item.Received)
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-yes-@item.Id" value="y" checked>
+                                            }
+                                            else
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-yes-@item.Id" value="y">
+                                            }
+                                        }
+                                        <label class="form-check-label" for="new-uniform-received-yes">yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+
+                                        @{
+                                            if (!item.Received)
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-no-@item.Id" value="n" checked>
+                                            }
+                                            else
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-no-@item.Id" value="n">
+                                            }
+                                        }
+
+                                        <label class="form-check-label" for="new-uniform-received-no">no</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="edit-uniform-paid-@item.Id" class="form-label">Paid in full</label>
+                                    <div class="form-check form-check-inline">
+                                        @{
+                                            if (item.PaidInFull)
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-yes-@item.Id" value="y" checked>
+                                            }
+                                            else
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-yes-@item.Id" value="y">
+                                            }
+                                        }
+                                        <label class="form-check-label" for="edit-uniform-paid-yes-@item.Id">yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+
+                                        @{
+                                            if (!item.PaidInFull)
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-no-@item.Id" value="n" checked>
+                                            }
+                                            else
+                                            {
+                                                <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-no-@item.Id" value="n">
+                                            }
+                                        }
+
+
+                                        <label class="form-check-label" for="edit-uniform-paid-no-@item.Id">no</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div style="width:100%;">
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success edit-uniform-sale-submit-btn" value="@item.Id">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

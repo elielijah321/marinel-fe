@@ -1,0 +1,60 @@
+﻿@using SchoolDraftWebsite.Helpers;
+@using SchoolDraftWebsite.Data.Entities;
+@model Tuple<InventoryItem, List<UniformSale>>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Price per uniform</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Paid In Full</th>
+            <th scope="col">Received</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Class</th>
+            <th scope="col">Revenue</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            foreach (var item in Model.Item2)
+            {
+                <tr>
+                    <td>
+                        @DateTimeHelper.ToDayMonthYear(@item.Date)
+                    </td>
+                    <td>
+                        @Model.Item1.SellingPrice
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @item.PaidInFull
+                    </td>
+                    <td>
+                        @item.Received
+                    </td>
+                    <td>
+                        @item.Student.Name
+                    </td>
+                    <td>
+                        @item.Student.Class.Name
+                    </td>
+                    <td>
+                        @item.Revenue
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning edit-uniform-sale-btn" value="@item.Id">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

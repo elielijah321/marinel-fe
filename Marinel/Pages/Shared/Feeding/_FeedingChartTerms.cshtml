@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SchoolDraftWebsite.Data.Entities.FeedingInfoItem>
+@using SchoolDraftWebsite.Data.Enums;
+
+@{
+    var termOneFeedingItems = Model.ToList().Where(fi => fi.Term.Equals(Term.TermOne));
+    var termTwoFeedingItems = Model.ToList().Where(fi => fi.Term.Equals(Term.TermTwo));
+    var termThreeFeedingItems = Model.ToList().Where(fi => fi.Term.Equals(Term.TermThree));
+
+}
+
+<div class="accordion" id="feeding-chart-accordion">
+    @{
+        if (termOneFeedingItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termOne" aria-expanded="true" aria-controls="termOne">
+                        Term One
+                    </button>
+                </h2>
+                <div id="termOne" class="accordion-collapse collapse show" aria-labelledby="termHeadingOne" data-bs-parent="#feeding-chart-accordion">
+                    <div class="accordion-body">
+                        <partial name="Feeding/_FeedingChartTable" model="termOneFeedingItems" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (termTwoFeedingItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termTwo" aria-expanded="false" aria-controls="termTwo">
+                        Term Two
+                    </button>
+                </h2>
+                <div id="termTwo" class="accordion-collapse collapse" aria-labelledby="termHeadingTwo" data-bs-parent="#feeding-chart-accordion">
+                    <div class="accordion-body">
+                        <partial name="Feeding/_FeedingChartTable" model="termTwoFeedingItems" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (termThreeFeedingItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingThree">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termThree" aria-expanded="false" aria-controls="termThree">
+                        Term Three
+                    </button>
+                </h2>
+                <div id="termThree" class="accordion-collapse collapse" aria-labelledby="termHeadingThree" data-bs-parent="#feeding-chart-accordion">
+                    <div class="accordion-body">
+                        <partial name="Feeding/_FeedingChartTable" model="termThreeFeedingItems" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

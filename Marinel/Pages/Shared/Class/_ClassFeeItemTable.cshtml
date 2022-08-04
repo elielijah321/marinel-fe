@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SchoolDraftWebsite.Data.Entities.ClassFeeInfoItem>
+@using SchoolDraftWebsite.Helpers;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Number Enrolled</th>
+            <th scope="col">Number Paid</th>
+            <th scope="col">Amount Received</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@DateTimeHelper.ToDayMonthYear(item.Date)</td>
+                <td>@item.NumberEnrolled</td>
+                <td>@item.NumberPaid</td>
+                <td>@item.AmountReceived</td>
+                <td>
+                    <button type="button" class="btn btn-warning edit-class-fee-info-item" value="@item.Id">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{ 
+    foreach (var item in Model)
+    {
+        <partial name="Class/_ClassFeeInfoItemModal" model="item" />
+    }
+}

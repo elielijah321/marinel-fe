@@ -1,0 +1,48 @@
+﻿@model SchoolDraftWebsite.Data.Entities.ClassFeeInfoItem;
+@using SchoolDraftWebsite.Helpers; 
+
+<div id="edit-class-fee-item-modal-@Model.Id" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Class Fee Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-class-fee-item-form-@Model.Id" method="post">
+
+                    <input id="form-id" name="form-id" type="hidden" value="@Model.Id" />
+
+                    <div class="form-group">
+                        <label for="class-fee-date-@Model.Id" class="form-label">Date</label>
+                        <input type="date" class="form-control class-fee-date" id="class-fee-date-@Model.Id" name="class-fee-date-@Model.Id" value="@DateTimeHelper.ToYearMonthDay(Model.Date)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enrolment-@Model.Id" class="form-label">Enrolment</label>
+                        <input type="number" class="form-control" id="enrolment-@Model.Id" name="enrolment-@Model.Id" value="@Model.NumberEnrolled">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num-paid-@Model.Id" class="form-label">Number Paid</label>
+                        <input type="number" class="form-control" id="num-paid-@Model.Id" name="num-paid-@Model.Id" value="@Model.NumberPaid">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount-received-@Model.Id" class="form-label">Amount Received (₵)</label>
+                        <input type="number" class="form-control" id="amount-received-@Model.Id" name="amount-received-@Model.Id" value="@Model.AmountReceived">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success edit-class-fee-item-form" value="@Model.Id">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

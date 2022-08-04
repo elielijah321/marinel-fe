@@ -1,0 +1,100 @@
+﻿@model SchoolDraftWebsite.Pages.UniformPageData;
+
+
+<div id="new-uniform-sale-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New uniform sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-uniform-sale-form" method="post">
+
+                    <input id="form-type" name="form-type" type="hidden" value="new-uniform-sale" />
+
+                    <div class="form-group">
+                        <label for="new-uniform-sale-date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="new-uniform-sale-date" name="new-uniform-sale-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-uniform-type" class="form-label">Uniform Type</label>
+                        <select id="new-uniform-type" name="new-uniform-type" class="form-select" aria-label="new-uniform-type">
+                            <option value="Select a type..." selected>Select a type...</option>
+                            @{
+                                foreach (var _unifom in Model.UniformListSales)
+                                {
+                                    <option value="@_unifom.Item1.Id">@_unifom.Item1.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-uniform-quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="new-uniform-quantity" name="new-uniform-quantity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-uniform-class" class="form-label">Class</label>
+                        <select id="new-uniform-class" name="new-uniform-class" class="form-select" aria-label="new-uniform-class">
+                            <option value="Select a class..." selected>Select a class...</option>
+                            @{
+                                foreach (var _class in Model.Classes)
+                                {
+                                    <option value="@_class.Id">@_class.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-uniform-student" class="form-label">Student</label>
+                        <select id="new-uniform-student" name="new-uniform-student" class="form-select" aria-label="new-uniform-student">
+                            <option value="Select a student..." selected>Select a student...</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="new-uniform-received" class="form-label">Received</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-uniform-received-options" id="new-uniform-received-yes" value="y">
+                            <label class="form-check-label" for="new-uniform-received-yes">yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-uniform-received-options" id="new-uniform-received-no" value="n">
+                            <label class="form-check-label" for="new-uniform-received-no">no</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="new-uniform-received" class="form-label">Paid in full</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-uniform-paid-options" id="new-uniform-paid-yes" value="y">
+                            <label class="form-check-label" for="new-uniform-received-yes">yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-uniform-paid-options" id="new-uniform-paid-no" value="n">
+                            <label class="form-check-label" for="new-uniform-paid-no">no</label>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="new-uniform-sale-submit-btn" class="btn btn-success">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
