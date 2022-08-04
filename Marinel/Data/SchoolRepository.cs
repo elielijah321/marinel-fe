@@ -14,6 +14,11 @@ namespace SchoolDraftWebsite.Data
             _ctx = ctx;
         }
 
+        public string GetKey()
+        {
+            return _ctx.GetKey();
+        }
+
         // Get
 
         public IEnumerable<Student> GetAllStudents()

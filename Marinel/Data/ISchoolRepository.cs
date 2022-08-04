@@ -5,6 +5,7 @@ namespace SchoolDraftWebsite.Data
 {
     public interface ISchoolRepository
     {
+        string GetKey();
         IEnumerable<Student> GetAllStudents();
         IEnumerable<Class> GetAllClasses();
         IEnumerable<FeedingInfoItem> GetAllFeedingItems();
