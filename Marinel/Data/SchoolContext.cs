@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using SchoolDraftWebsite.Data.Entities;
 using SchoolDraftWebsite.Data.SeedData;
 using SchoolDraftWebsite.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,6 @@ namespace SchoolDraftWebsite.Data
                     keyPrefix = "dev";
                     break;
             }
-
 
             var keyName = $"{keyPrefix}-connection-string";
             var connectionString = new SecretProvider(_config).GetSecret(keyName);
