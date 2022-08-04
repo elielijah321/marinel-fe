@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
+    <PackageReference Include="Azure.Identity" Version="1.6.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.24" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.24">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Pages\Shared\Class\" />
+    <None Remove="Pages\Shared\Feeding\" />
+    <None Remove="Pages\Shared\Inventory\" />
+    <None Remove="Pages\Shared\Book\" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Pages\Shared\Book %28copy%29\" />
+    <None Remove="Data\Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Shared\Class\" />
+    <Folder Include="Pages\Shared\Feeding\" />
+    <Folder Include="Pages\Shared\Inventory\" />
+    <Folder Include="Pages\Shared\Book\" />
+    <Folder Include="Pages\Shared\Uniform\" />
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+</Project>

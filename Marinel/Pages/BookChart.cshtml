@@ -1,0 +1,131 @@
+﻿@page
+@model SchoolDraftWebsite.Pages.BookChartPageModel
+@{
+    ViewData["Title"] = "Book Chart";
+}
+
+<button id="new-book-sale-btn" type="button" class="btn btn-success">Add New Book Sale</button>
+
+
+<div class="accordion" id="book-chart-accordion">
+    @{
+
+        foreach (var bookItem in Model.BookListSales)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="book-@bookItem.Item1.Id-heading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@bookItem.Item1.Id" aria-expanded="true" aria-controls="@bookItem.Item1.Id">
+                        @bookItem.Item1.Name
+                    </button>
+                </h2>
+                <div id="@bookItem.Item1.Id" class="accordion-collapse collapse show" aria-labelledby="book-@bookItem.Item1.Id-heading" data-bs-parent="#book-chart-accordion">
+                    <div class="accordion-body">
+                        <partial name="Book/_BookChartTable" model="@bookItem" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+
+<div id="new-book-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New book sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-book-sale-form" method="post">
+
+                    <input id="form-type" name="form-type" type="hidden" value="new-book-sale" />
+
+                    <div class="form-group">
+                        <label for="new-book-sale-date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="new-book-sale-date" name="new-book-sale-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-book-sale-type" class="form-label">Book Type</label>
+                        <select id="new-book-sale-type" name="new-book-sale-type" class="form-select" aria-label="new-book-sale-type">
+                            <option selected>Select a book type...</option>
+                            @{
+                                foreach (var bookItem in Model.BookListSales)
+                                {
+                                    <option value="@bookItem.Item1.Id">@bookItem.Item1.Name</option>
+                                }
+                            }
+
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-book-sale-number-sold" class="form-label">Number sold</label>
+                        <input type="number" class="form-control" id="new-book-sale-number-sold" name="new-book-sale-number-sold">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="new-book-sale-submit-btn" class="btn btn-success">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script>
+        $(function ()
+        {
+
+            var todaysDate = new Date().toISOString().split('T')[0];
+            $('#new-book-sale-date').val(todaysDate);
+
+
+            $('#new-book-sale-btn').click(function ()
+            {
+                $('#new-book-modal').modal('show');
+            });
+
+            $('#new-book-sale-submit-btn').click(function () {
+
+                var bookTypeDDLVal = $('#new-book-sale-type').val();
+                var saleDateFieldVal = $('#new-book-sale-date').val();
+                var numberSoldFieldVal = $('#new-book-sale-number-sold').val();
+          
+                if (bookTypeDDLVal !== 'Select a book type...' && saleDateFieldVal.length > 0 && numberSoldFieldVal > 0) {
+                    $('#new-book-sale-form').submit();
+                } else {
+                    alert('Error: Must Enter all fields');
+                }
+
+
+            });
+
+
+            $('.edit-book-sale-btn').click(function () {
+                var bookSaleId = $(this).val();
+                $('#edit-book-modal-' + bookSaleId).modal('show');
+            });
+
+
+            $('.edit-book-sale-submit-btn').click(function () {
+
+                var thisSale = $(this).val();
+
+
+                $('#edit-book-sale-form-' + thisSale).submit();
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SchoolDraftWebsite.Data.Entities.ClassFeeInfoItem>
+@using SchoolDraftWebsite.Data.Enums;
+
+@{
+    var termOneClassfeeItems = Model.ToList().Where(cf => cf.Term.Equals(Term.TermOne));
+    var termTwoClassfeeItems = Model.ToList().Where(cf => cf.Term.Equals(Term.TermTwo));
+    var termThreeClassfeeItems = Model.ToList().Where(cf => cf.Term.Equals(Term.TermThree));
+}
+
+<div class="accordion" id="class-fee-accordion">
+    @{
+        if (termOneClassfeeItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termOne" aria-expanded="true" aria-controls="termOne">
+                        Term One
+                    </button>
+                </h2>
+                <div id="termOne" class="accordion-collapse collapse show" aria-labelledby="termHeadingOne" data-bs-parent="#class-fee-accordion">
+                    <div class="accordion-body">
+                        <partial name="Class/_ClassFeeItemTable" model="termOneClassfeeItems" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (termTwoClassfeeItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termTwo" aria-expanded="false" aria-controls="termTwo">
+                        Term Two
+                    </button>
+                </h2>
+                <div id="termTwo" class="accordion-collapse collapse" aria-labelledby="termHeadingTwo" data-bs-parent="#class-fee-accordion">
+                    <div class="accordion-body">
+                        <partial name="Class/_ClassFeeItemTable" model="termTwoClassfeeItems" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (termThreeClassfeeItems.Any())
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="termHeadingThree">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#termThree" aria-expanded="false" aria-controls="termThree">
+                        Term Three
+                    </button>
+                </h2>
+                <div id="termThree" class="accordion-collapse collapse" aria-labelledby="termHeadingThree" data-bs-parent="#class-fee-accordion">
+                    <div class="accordion-body">
+                        <partial name="Class/_ClassFeeItemTable" model="termThreeClassfeeItems" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
