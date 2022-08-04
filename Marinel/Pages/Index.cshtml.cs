@@ -13,6 +13,7 @@ namespace SchoolDraftWebsite.Pages
         private readonly ISchoolRepository _schoolRepository;
 
         public List<Student> Students { get; set; }
+        public string Env { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ISchoolRepository schoolRepo)
         {
@@ -23,6 +24,7 @@ namespace SchoolDraftWebsite.Pages
         public void OnGet()
         {
             Students = _schoolRepository.GetAllStudents().ToList();
+            Env = _schoolRepository.GetKey();
         }
     }
 }

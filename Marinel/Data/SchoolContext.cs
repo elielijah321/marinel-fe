@@ -101,5 +101,10 @@ namespace SchoolDraftWebsite.Data
                     .HasData(seedInventoryItem);
             }
         }
+
+        public string GetKey()
+        {
+            return _config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+        }
     }
 }
