@@ -58,3 +58,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_83DA75F6292C4F3495E047A44327AD6C }}
           package: .
+          
+      - name: Echo Environment
+        run: echo "the env is ${{ env.ASPNETCORE_ENVIRONMENT }}"
