@@ -8,6 +8,10 @@ on:
     branches:
       - dev
   workflow_dispatch:
+  
+  
+env:
+  ASPNETCORE_ENVIRONMENT: Development
 
 jobs:
   build:
