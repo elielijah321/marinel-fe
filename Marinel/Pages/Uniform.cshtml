@@ -1,0 +1,407 @@
+﻿@page "{handler?}"
+@model SchoolDraftWebsite.Pages.UniformPageModel
+@using SchoolDraftWebsite.Helpers;
+
+@{
+    ViewData["Title"] = "Uniform";
+}
+
+
+
+
+<button id="new-uniform-sale-btn" type="button" class="btn btn-success">Add New Uniform Sale</button>
+<button id="new-p-and-c-sale-btn" type="button" class="btn btn-success">Add New Pink and Check Sale</button>
+
+
+<div class="accordion" id="uniform-chart-accordion">
+
+    @{
+        foreach (var uniformItem in Model.UniformPageData.UniformListSales)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="uniform-@uniformItem.Item1.Id-heading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@uniformItem.Item1.Id" aria-controls="@uniformItem.Item1.Id">
+                        @uniformItem.Item1.Name
+                    </button>
+                </h2>
+                <div id="@uniformItem.Item1.Id" class="accordion-collapse collapse show" aria-labelledby="uniform-@uniformItem.Item1.Id-heading" data-bs-parent="#uniform-chart-accordion">
+                    <div class="accordion-body">
+                        <partial name="Uniform/_UniformChartTable" model="@uniformItem" />
+                    </div>
+                </div>
+            </div>
+
+
+            foreach (var item in uniformItem.Item2)
+            {
+                <div id="edit-uniform-modal-@item.Id" class="modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit uniform sale</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="edit-uniform-sale-form-@item.Id" method="post">
+
+                                    <input id="form-type" name="form-type" type="hidden" value="edit-uniform-sale" />
+                                    <input id="form-id" name="form-id" type="hidden" value="@item.Id" />
+
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-sale-date-@item.Id" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="edit-uniform-sale-date-@item.Id" name="edit-uniform-sale-date-@item.Id" value="@DateTimeHelper.ToYearMonthDay(item.Date)">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-type-@item.Id" class="form-label">Uniform Type</label>
+                                        <select id="edit-uniform-type-@item.Id" name="edit-uniform-type-@item.Id" class="form-select" aria-label="edit-uniform-type-@item.Id">
+                                            @{
+                                                <option value="@item.InventoryItem.Id">@item.InventoryItem.Name</option>
+                                            }
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-quantity-@item.Id" class="form-label">Quantity</label>
+                                        <input type="number" class="form-control" id="edit-uniform-quantity-@item.Id" name="edit-uniform-quantity-@item.Id" value="@item.Quantity">
+                                    </div>
+
+                                    <div class="form-group" aria-label="@item.Id">
+                                        <label for="edit-uniform-class-@item.Id" class="form-label">Class</label>
+                                        <select id="edit-uniform-class-@item.Id" name="edit-uniform-class-@item.Id" class="form-select edit-uniform-class">
+                                            <option value="Select a class..." selected>Select a class...</option>
+
+                                            @{
+                                                foreach (var _class in Model.UniformPageData.Classes)
+                                                {
+                                                    if (item.Student.ClassId == _class.Id)
+                                                    {
+                                                        <option value="@_class.Id" selected>@_class.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@_class.Id">@_class.Name</option>
+                                                    }
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-student-@item.Id" class="form-label">Student</label>
+                                        <select id="edit-uniform-student-@item.Id" name="edit-uniform-student-@item.Id" class="form-select" aria-label="edit-uniform-student-@item.Id">
+                                            <option value="Select a student...">Select a student...</option>
+
+                                            @{
+                                                var classMates = item.Student.Class.Students;
+
+                                                foreach (var student in classMates)
+                                                {
+                                                    if (item.StudentId == student.Id)
+                                                    {
+                                                        <option value="@student.Id" selected>@student.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@student.Id" selected>@student.Name</option>
+                                                    }
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-received-@item.Id" class="form-label">Received</label>
+                                        <div class="form-check form-check-inline">
+                                            @{
+                                                if (item.Received)
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-yes-@item.Id" value="y" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-yes-@item.Id" value="y">
+                                                }
+                                            }
+                                            <label class="form-check-label" for="new-uniform-received-yes">yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+
+                                            @{
+                                                if (!item.Received)
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-no-@item.Id" value="n" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-received-options-@item.Id" id="edit-uniform-received-no-@item.Id" value="n">
+                                                }
+                                            }
+
+                                            <label class="form-check-label" for="new-uniform-received-no">no</label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="edit-uniform-paid-@item.Id" class="form-label">Paid in full</label>
+                                        <div class="form-check form-check-inline">
+                                            @{
+                                                if (item.PaidInFull)
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-yes-@item.Id" value="y" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-yes-@item.Id" value="y">
+                                                }
+                                            }
+                                            <label class="form-check-label" for="edit-uniform-paid-yes-@item.Id">yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+
+                                            @{
+                                                if (!item.PaidInFull)
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-no-@item.Id" value="n" checked>
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-check-input" type="radio" name="edit-uniform-paid-options-@item.Id" id="edit-uniform-paid-no-@item.Id" value="n">
+                                                }
+                                            }
+
+
+                                            <label class="form-check-label" for="edit-uniform-paid-no-@item.Id">no</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div style="width:100%;">
+                                    <div style="float:right;">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success edit-uniform-sale-submit-btn" value="@item.Id">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+
+<div class="accordion" id="p-and-c-uniform-chart-accordion">
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="p-and-c-heading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#p-and-c-accordion-body" aria-controls="p-and-c-accordion-body">
+                PINK AND CHECK UNIFORM
+            </button>
+        </h2>
+        <div id="p-and-c-accordion-body" class="accordion-collapse collapse show" aria-labelledby="p-and-c-heading" data-bs-parent="#p-and-c-uniform-chart-accordion">
+            <div class="accordion-body">
+                <partial name="Uniform/_PandCUniformChartTable" model="@Model.UniformPageData.PandCUniformSales" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="Uniform/_NewUniformSaleModal" model="@Model.UniformPageData" />
+<partial name="Uniform/_NewPandCSaleModal" model="@Model.UniformPageData" />
+<partial name="Uniform/_EditPandCSaleModal" model="@Model.UniformPageData" />
+
+
+
+@section scripts {
+
+    <script>$(function () {
+
+            var todaysDate = new Date().toISOString().split('T')[0];
+            $('#new-uniform-sale-date').val(todaysDate);
+            $('#new-p-and-c-sale-date-paid').val(todaysDate);
+
+            $.fn.getStudents = function (classId) {
+
+                return $.ajax({
+                    type: "GET",
+                    url: "/Uniform/StudentsByClassId",
+                    data: { classId: classId }
+                });
+            }
+
+            $('#new-uniform-sale-btn').click(function () {
+                $('#new-uniform-sale-modal').modal('show');
+            });
+
+            $('#new-p-and-c-sale-btn').click(function () {
+                $('#new-p-and-c-sale-modal').modal('show');
+            });
+
+            $('#new-uniform-class').change(function () {
+
+                var classId = $(this).val();
+                var options = '<option selected>Select a student...</option>';
+
+                $.when($.fn.getStudents(classId)).done(function (response) {
+
+                    $.each(response, function (i, obj) {
+                        options += '<option value="' + obj.id + '">' + obj.name + '</option>';
+                    });
+
+                    $('#new-uniform-student').html(options);
+                });
+            });
+
+            $('.edit-uniform-class').change(function () {
+
+                var classId = $(this).val();
+                var options = '<option selected>Select a student...</option>';
+
+                var itemID = $(this).parent().attr("aria-label");
+
+                $.when($.fn.getStudents(classId)).done(function (response) {
+
+                    $.each(response, function (i, obj) {
+                        options += '<option value="' + obj.id + '">' + obj.name + '</option>';
+                    });
+
+                    $('#edit-uniform-student-' + itemID).html(options);
+                });
+            });
+
+            $('#new-uniform-sale-submit-btn').click(function () {
+
+                var saleDateFieldVal = $('#new-uniform-sale-date').val();
+                var numberSoldFieldVal = $('#new-uniform-quantity').val();
+                var uniformTypeDDLVal = $('#new-uniform-type').val();
+                var uniformStudentDDLVal = $('#new-uniform-student').val();
+                var uniformReceivedFieldVal = $('input[name=new-uniform-received-options]:checked').val();
+                var uniformPaidFieldVal = $('input[name=new-uniform-paid-options]:checked').val();
+
+
+                if (uniformTypeDDLVal !== 'Select a type...' && uniformStudentDDLVal !== 'Select a student...' && saleDateFieldVal.length > 0 && numberSoldFieldVal > 0 && uniformReceivedFieldVal && uniformPaidFieldVal) {
+                    $('#new-uniform-sale-form').submit();
+                } else {
+                    alert('Error: Must Enter all fields');
+                }
+
+            });
+
+            $('#new-p-and-c-sale-submit-btn').click(function () {
+
+                var datePaidFieldVal = $('#new-p-and-c-sale-date-paid').val();
+                var dateReceivedFieldVal = $('#new-p-and-c-sale-date-received').val();
+                var checkYardsFieldVal = $('#new-p-and-c-check-yards-quantity').val();
+                var pinkYardsFieldVal = $('#new-p-and-c-pink-yards-quantity').val();
+                var uniformStudentDDLVal = $('#new-p-and-c-student').val();
+                var uniformReceivedFieldVal = $('input[name=new-p-and-c-received-options]:checked').val();
+                var uniformPaidFieldVal = $('input[name=new-p-and-c-paid-options]:checked').val();
+                var seamstressPaidFieldVal = $('input[name=new-p-and-c-seamstress-paid-options]:checked').val();
+
+                if (uniformStudentDDLVal !== 'Select a student...' && datePaidFieldVal.length > 0 && dateReceivedFieldVal.length > 0 && checkYardsFieldVal > 0 && pinkYardsFieldVal > 0 && uniformReceivedFieldVal && uniformPaidFieldVal && seamstressPaidFieldVal) {
+                    $('#new-p-and-c-sale-form').submit();
+                } else {
+                    alert('Error: Must Enter all fields');
+                }
+            });
+
+            $('.edit-uniform-sale-btn').click(function () {
+                var uniformSaleId = $(this).val();
+                $('#edit-uniform-modal-' + uniformSaleId).modal('show');
+            });
+
+            $('.edit-p-and-c-uniform-sale-btn').click(function () {
+
+
+
+                var uniformSaleId = $(this).val();
+
+
+                //alert(uniformSaleId)
+                $('#edit-p-and-c-sale-modal-' + uniformSaleId).modal('show');
+
+
+            });
+
+            $('.edit-uniform-sale-submit-btn').click(function () {
+
+                var thisSaleId = $(this).val();
+
+                var saleDateFieldVal = $('#edit-uniform-sale-date-' + thisSaleId).val();
+                var numberSoldFieldVal = $('#edit-uniform-quantity-' + thisSaleId).val();
+                var uniformTypeDDLVal = $('#edit-uniform-type-' + thisSaleId).val();
+                var uniformStudentDDLVal = $('#edit-uniform-student-' + thisSaleId).val();
+                var uniformReceivedFieldVal = $('input[name=edit-uniform-received-options-' + thisSaleId + ']:checked').val();
+                var uniformPaidFieldVal = $('input[name=edit-uniform-paid-options-' + thisSaleId + ']:checked').val();
+
+                if (uniformTypeDDLVal !== 'Select a type...' && uniformStudentDDLVal !== 'Select a student...' && saleDateFieldVal.length > 0 && numberSoldFieldVal > 0 && uniformReceivedFieldVal && uniformPaidFieldVal) {
+                    $('#edit-uniform-sale-form-' + thisSaleId).submit();
+                } else {
+                    alert('Error: Must Enter all fields');
+                }
+            });
+
+            $('#new-p-and-c-class').change(function () {
+
+                var classId = $(this).val();
+
+                var options = '<option selected>Select a student...</option>';
+
+                $.when($.fn.getStudents(classId)).done(function (response) {
+
+                    $.each(response, function (i, obj) {
+                        options += '<option value="' + obj.id + '">' + obj.name + '</option>';
+                    });
+
+                    $('#new-p-and-c-student').html(options);
+                });
+            });
+
+            $('.edit-p-and-c-class').change(function () {
+
+                var classId = $(this).val();
+                var itemID = $(this).parent().attr("aria-label");
+
+                var options = '<option selected>Select a student...</option>';
+
+                $.when($.fn.getStudents(classId)).done(function (response) {
+
+                    $.each(response, function (i, obj) {
+                        options += '<option value="' + obj.id + '">' + obj.name + '</option>';
+                    });
+
+                    $('#edit-p-and-c-student-' + itemID).html(options);
+                });
+            });
+
+            $('.edit-p-and-c-sale-submit-btn').click(function () {
+
+                var thisSaleId = $(this).val();
+
+                var datePaidFieldVal = $('#edit-p-and-c-sale-date-paid-' + thisSaleId).val();
+                var dateReceivedFieldVal = $('#edit-p-and-c-sale-date-received-' + thisSaleId).val();
+                var checkYardsFieldVal = $('#edit-p-and-c-check-yards-quantity-' + thisSaleId).val();
+                var pinkYardsFieldVal = $('#edit-p-and-c-pink-yards-quantity-' + thisSaleId).val();
+                var uniformStudentDDLVal = $('#edit-p-and-c-student-' + thisSaleId).val();
+
+                var uniformReceivedFieldVal = $('input[name=edit-p-and-c-received-options-' + thisSaleId + ']:checked').val();
+                var uniformPaidFieldVal = $('input[name=edit-p-and-c-paid-options-' + thisSaleId + ']:checked').val();
+                var seamstressPaidFieldVal = $('input[name=edit-p-and-c-seamstress-paid-options-' + thisSaleId + ']:checked').val();
+
+                if (uniformStudentDDLVal !== 'Select a student...' && datePaidFieldVal.length > 0 && dateReceivedFieldVal.length > 0 && checkYardsFieldVal > 0 && pinkYardsFieldVal > 0 && uniformReceivedFieldVal && uniformPaidFieldVal && seamstressPaidFieldVal) {
+                    $('#edit-p-and-c-sale-form-' + thisSaleId).submit();
+                } else {
+                    alert('Error: Must Enter all fields');
+                }
+            });
+
+    });</script>
+}

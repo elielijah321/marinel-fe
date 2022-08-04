@@ -1,0 +1,106 @@
+﻿@model SchoolDraftWebsite.Pages.UniformPageData;
+
+<div id="new-p-and-c-sale-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Pink and Check sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-p-and-c-sale-form" method="post">
+
+                    <input id="form-type" name="form-type" type="hidden" value="new-p-and-c-sale" />
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-sale-date-paid" class="form-label">Date Paid</label>
+                        <input type="date" class="form-control" id="new-p-and-c-sale-date-paid" name="new-p-and-c-sale-date-paid">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-sale-date-received" class="form-label">Date Received</label>
+                        <input type="date" class="form-control" id="new-p-and-c-sale-date-received" name="new-p-and-c-sale-date-received">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-check-yards-quantity" class="form-label">Check Yards Needed</label>
+                        <input type="number" class="form-control" id="new-p-and-c-check-yards-quantity" name="new-p-and-c-check-yards-quantity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-pink-yards-quantity" class="form-label">Pink Yards Needed</label>
+                        <input type="number" class="form-control" id="new-p-and-c-pink-yards-quantity" name="new-p-and-c-pink-yards-quantity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-class" class="form-label">Class</label>
+                        <select id="new-p-and-c-class" name="new-p-and-c-class" class="form-select" aria-label="new-p-and-c-class">
+                            <option value="Select a class..." selected>Select a class...</option>
+                            @{
+                                foreach (var _class in Model.Classes)
+                                {
+                                    <option value="@_class.Id">@_class.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-student" class="form-label">Student</label>
+                        <select id="new-p-and-c-student" name="new-p-and-c-student" class="form-select" aria-label="new-p-and-c-student">
+                            <option value="Select a student..." selected>Select a student...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-received" class="form-label">Received</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-received-options" id="new-p-and-c-received-yes" value="y">
+                            <label class="form-check-label" for="new-p-and-c-received-yes">yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-received-options" id="new-p-and-c-received-no" value="n">
+                            <label class="form-check-label" for="new-p-and-c-received-no">no</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-paid" class="form-label">Paid in full</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-paid-options" id="new-p-and-c-paid-yes" value="y">
+                            <label class="form-check-label" for="new-p-and-c-received-yes">yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-paid-options" id="new-p-and-c-paid-no" value="n">
+                            <label class="form-check-label" for="new-p-and-c-paid-no">no</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-p-and-c-seamstress-paid" class="form-label">Seamstress Paid</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-seamstress-paid-options" id="new-p-and-c-seamstress-paid-yes" value="y">
+                            <label class="form-check-label" for="new-p-and-c-seamstress-paid-yes">yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-p-and-c-seamstress-paid-options" id="new-p-and-c-seamstress-paid-no" value="n">
+                            <label class="form-check-label" for="new-p-and-c-seamstress-paid-no">no</label>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="new-p-and-c-sale-submit-btn" class="btn btn-success">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

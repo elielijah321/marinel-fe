@@ -1,0 +1,97 @@
+﻿@model SchoolDraftWebsite.Data.Entities.FeedingInfoItem;
+@using SchoolDraftWebsite.Helpers; 
+
+<div id="edit-feeding-item-modal-@Model.Id" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Feeding Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-feeding-item-form-@Model.Id" method="post">
+
+                    <input id="form-id" name="form-id" type="hidden" value="@Model.Id" />
+
+                    <div class="form-group">
+                        <label for="feeding-date-@Model.Id" class="form-label">Date</label>
+                        <input type="date" class="form-control feeding-date" id="feeding-date-@Model.Id" name="feeding-date-@Model.Id" value="@DateTimeHelper.ToYearMonthDay(Model.Date)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num-of-students-@Model.Id" class="form-label">Number of Students</label>
+                        <input type="number" class="form-control" id="num-of-students-@Model.Id" name="num-of-students-@Model.Id" value="@Model.NumberOfStudents">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total-collected-@Model.Id" class="form-label">Total Collected (₵)</label>
+                        <input type="number" class="form-control" id="total-collected-@Model.Id" name="total-collected-@Model.Id" value="@Model.TotalCollected">
+                    </div>
+
+                    <table id="feeding-expenses-table-@Model.Id" class="table" style="display:@(Model.FeedingExpenses.Any() ? "table" : "none");">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Expense Amount</th>
+                                <th scope="col">Expense Reason</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-body-@Model.Id">
+                            @{
+                                foreach (var feedingExpense in Model.FeedingExpenses)
+                                {
+                                    <tr id="expense-item-row-@feedingExpense.Id" class='expense-items-@Model.Id'>
+                                        <td name="expense-amount-@feedingExpense.Id">
+                                            @feedingExpense.ExpenseAmount
+                                        </td>
+                                        <td name="expense-reason-@feedingExpense.Id">
+                                            @feedingExpense.ExpenseReason
+                                        </td>
+                                        <td onclick="@($"$.fn.removeFeedingExpense('{string.Format("{0},{1}", feedingExpense.Id, Model.Id)}')")">
+                                            x
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    @{
+                        foreach (var feedingExpense in Model.FeedingExpenses)
+                        {
+                            var expenseHiddenRowName = $"hidden-feeding-expense-{@Model.Id}-{@feedingExpense.Id}";
+                            var value = $"{feedingExpense.ExpenseAmount},{feedingExpense.ExpenseReason}";
+
+                            <input id="@expenseHiddenRowName" name="@expenseHiddenRowName" type="hidden" value="@value" />
+                        }
+                    }
+
+                    <div id="feeding-expense-group-@Model.Id" class="feeding-expense-group-@Model.Id" style="display:none;">
+
+                        <div class="form-group">
+                            <label for="extra-expenditure-amount-@Model.Id" class="form-label">Extra Expenditure (₵)</label>
+                            <input type="number" class="form-control" id="extra-expenditure-amount-@Model.Id" name="extra-expenditure-amount-@Model.Id">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="extra-expenditure-reason-@Model.Id" class="form-label">Reason For Expenditure</label>
+                            <input type="text" class="form-control" id="extra-expenditure-reason-@Model.Id" name="extra-expenditure-reason-@Model.Id">
+                        </div>
+                        <button class="btn btn-success update-expense-btn" value="@Model.Id">Add Expense</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%;">
+                    <div style="float:left;">
+                        <button id="enter-expense-btn-@Model.Id" type="button" class="btn btn-warning enter-expense-btn" value="@Model.Id">Enter Expense</button>
+                    </div>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success edit-feeding-item-form" value="@Model.Id">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

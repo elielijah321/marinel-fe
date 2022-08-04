@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1,
+    "Name": "SMALL NOTEBOOK",
+    "InventoryTypeId": 1,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 2,
+    "Name": "MEDIUM NOTEBOOK",
+    "InventoryTypeId": 1,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 3,
+    "Name": "EXERCISE BOOKS",
+    "InventoryTypeId": 1,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 4,
+    "Name": "CRECHE UNIFORM",
+    "InventoryTypeId": 2,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 5,
+    "Name": "WEDNESDAY WEAR UNIFORM",
+    "InventoryTypeId": 2,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 6,
+    "Name": "FRIDAY WEAR UNIFORM",
+    "InventoryTypeId": 2,
+    "Quantity": 100,
+    "CostPerUnit": 10,
+    "SellingPrice": 10
+  },
+  {
+    "Id": 7,
+    "Name": "PINK MATERIAL",
+    "InventoryTypeId": 3,
+    "Quantity": 100,
+    "CostPerUnit": 0,
+    "SellingPrice": 0
+  },
+  {
+    "Id": 8,
+    "Name": "CHECK MATERIAL",
+    "InventoryTypeId": 3,
+    "Quantity": 100,
+    "CostPerUnit": 0,
+    "SellingPrice": 0
+  }
+]

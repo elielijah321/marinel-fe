@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SchoolDraftWebsite.Data.Entities.FeedingInfoItem>
+@using SchoolDraftWebsite.Helpers;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Number Of Students</th>
+            <th scope="col">Total Collected</th>
+            <th scope="col">Expenses</th>
+            <th scope="col">Revenue</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @DateTimeHelper.ToDayMonthYear(@item.Date)
+                </td>
+                <td>@item.NumberOfStudents</td>
+                <td>@item.TotalCollected</td>
+                <td>
+                    @foreach (var feedingExpenseModel in item.FeedingExpenses)
+                    {
+                        <span>@feedingExpenseModel.ExpenseAmount - @feedingExpenseModel.ExpenseReason</span> <br />
+                    }
+                </td>
+                <td>@item.Revenue</td>
+                <td>
+                    <button type="button" class="btn btn-warning edit-feeding-info-item" value="@item.Id">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@{
+    foreach (var item in Model)
+    {
+        <partial name="Feeding/_FeedingInfoItemModal" model="item" />
+    }
+}

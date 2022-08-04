@@ -1,0 +1,68 @@
+﻿@using SchoolDraftWebsite.Helpers;
+@using SchoolDraftWebsite.Data.Entities;
+@model List<PandCUniformSale>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Paid</th>
+            <th scope="col">Received</th>
+            <th scope="col">Check Yards</th>
+            <th scope="col">Pink Yards</th>
+            <th scope="col">Paid In Full</th>
+            <th scope="col">Received</th>
+            <th scope="col">Seamstress Paid</th>
+            <th scope="col">Class</th>
+            <th scope="col">Student</th>
+            <th scope="col">Total Collected</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @DateTimeHelper.ToDayMonthYear(item.DatePaid)
+                    </td>
+                    <td>
+                        @DateTimeHelper.ToDayMonthYear(item.ReceivedDate)
+                    </td>
+                    <td>
+                        @item.CheckYardsQuantity
+                    </td>
+                    <td>
+                        @item.PinkYardsQuantity
+                    </td>
+                    <td>
+                        @item.PaidInFull
+                    </td>
+                    <td>
+                        @item.Received
+                    </td>
+                    <td>
+                        @item.SeamstressPaid
+                    </td>
+                    <td>
+                        @item.Student.Class.Name
+                    </td>
+                    <td>
+                        @item.Student.Name
+                    </td>
+                    <td>
+                        @item.TotalCollected
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning edit-p-and-c-uniform-sale-btn" value="@item.Id">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

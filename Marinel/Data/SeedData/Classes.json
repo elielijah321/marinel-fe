@@ -1,0 +1,77 @@
+[
+  {
+    "Id": 1,
+    "Name": "Creche",
+    "PinkAndCheckUniformPrice": 95
+  },
+  {
+    "Id": 2,
+    "Name": "Nursery",
+    "PinkAndCheckUniformPrice": 100
+  },
+  {
+    "Id": 3,
+    "Name": "Nursery 2A",
+    "PinkAndCheckUniformPrice": 100
+  },
+  {
+    "Id": 4,
+    "Name": "Nursery 2B",
+    "PinkAndCheckUniformPrice": 100
+  },
+  {
+    "Id": 5,
+    "Name": "KG1",
+    "PinkAndCheckUniformPrice": 100
+  },
+  {
+    "Id": 6,
+    "Name": "KG2",
+    "PinkAndCheckUniformPrice": 100
+  },
+  {
+    "Id": 7,
+    "Name": "CLASS 1",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 8,
+    "Name": "CLASS 2",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 9,
+    "Name": "CLASS 3",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 10,
+    "Name": "CLASS 4",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 11,
+    "Name": "CLASS 5",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 12,
+    "Name": "CLASS 6",
+    "PinkAndCheckUniformPrice": 105
+  },
+  {
+    "Id": 13,
+    "Name": "JHS 1",
+    "PinkAndCheckUniformPrice": 110
+  },
+  {
+    "Id": 14,
+    "Name": "JHS 2",
+    "PinkAndCheckUniformPrice": 110
+  },
+  {
+    "Id": 15,
+    "Name": "JHS 3",
+    "PinkAndCheckUniformPrice": 110
+  }
+]

@@ -1,0 +1,101 @@
+﻿@model SchoolDraftWebsite.Pages.SettingsPageModel
+
+<button id="newClassBtn" type="button" class="btn btn-success">Add New Class</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">P and C Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var _class in Model.Classes)
+            {
+                <tr>
+                    <td>@_class.Name</td>
+                    <td>@_class.PinkAndCheckUniformPrice</td>
+                    <td>
+                        <button type="button" class="btn btn-warning edit-class-item" value="@_class.Id">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div id="newClassModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new class</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-class-form" method="post">
+
+                    <input type="hidden" name="form-type" value="class" />
+
+                    <div class="form-group">
+                        <label for="className" class="form-label">Class Name</label>
+                        <input type="text" class="form-control" id="className" name="className">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pAndCPrice" class="form-label">P and C Price</label>
+                        <input type="number" class="form-control" id="pAndCPrice" name="pAndCPrice">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="newClassFormBtn" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@{
+    foreach (var _class in Model.Classes)
+    {
+    <div id="edit-class-modal-@_class.Id" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit class</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-class-form-@_class.Id" method="post">
+
+                        <input type="hidden" name="form-type" value="edit-class" />
+                        <input type="hidden" name="form-id" value="@_class.Id" />
+
+                        <div class="form-group">
+                            <label for="className-@_class.Id" class="form-label">Class Name</label>
+                            <input type="text" class="form-control" id="className-@_class.Id" name="className-@_class.Id" value="@_class.Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pAndCPrice-@_class.Id" class="form-label">P and C Price</label>
+                            <input type="number" class="form-control" id="pAndCPrice-@_class.Id" name="pAndCPrice-@_class.Id" value="@_class.PinkAndCheckUniformPrice">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary edit-class-submit-btn" value="@_class.Id">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+}
