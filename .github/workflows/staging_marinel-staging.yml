@@ -8,6 +8,9 @@ on:
     branches:
       - staging
   workflow_dispatch:
+  
+env:
+  ASPNETCORE_ENVIRONMENT: Staging
 
 jobs:
   build:
