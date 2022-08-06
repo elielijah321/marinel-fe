@@ -38,7 +38,12 @@ namespace SchoolDraftWebsite.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            var envKey = _config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+
+            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
+            // comment
+            var w = config["Environment"];
+
+            var envKey = w;//_config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
             var keyPrefix = "";
 
             switch (envKey)
