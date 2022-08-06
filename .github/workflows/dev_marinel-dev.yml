@@ -9,14 +9,9 @@ on:
       - dev
   workflow_dispatch:
   
-  
-env:
-  ASPNETCORE_ENVIRONMENT: Development
-
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -28,6 +23,13 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
+      - name: Set User secrets
+        run: |
+          cd Marinel
+          dotnet user-secrets init
+          dotnet user-secrets set "Environment" "Development"
+          dotnet user-secrets list
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
