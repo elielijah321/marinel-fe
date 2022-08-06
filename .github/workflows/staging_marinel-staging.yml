@@ -28,6 +28,12 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: Set User secrets
+        run: |
+          cd Marinel
+          dotnet user-secrets init
+          dotnet user-secrets set "Environment" "Staging"
+
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -61,3 +67,4 @@ jobs:
           
       - name: Echo Environment
         run: echo "the env is ${{ env.ASPNETCORE_ENVIRONMENT }}"
+

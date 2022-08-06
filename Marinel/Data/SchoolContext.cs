@@ -105,8 +105,7 @@ namespace SchoolDraftWebsite.Data
         public string GetKey()
         {
             var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-
-
+            // comment
             var w = config["Environment"];
 
             return w;
