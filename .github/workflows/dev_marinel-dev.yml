@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    env:
-      ASPNETCORE_ENVIRONMENT: Development
     steps:
       - uses: actions/checkout@v2
 
@@ -30,7 +28,7 @@ jobs:
         run: |
           cd Marinel
           dotnet user-secrets init
-          dotnet user-secrets set "VCAP_SERVICES" "test secret"
+          dotnet user-secrets set "Environment" "Development"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
