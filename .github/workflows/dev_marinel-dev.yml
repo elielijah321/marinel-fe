@@ -29,7 +29,6 @@ jobs:
       - name: Set User secrets
         run: |
           cd marinel-fe/Marinel
-          dotnet user-secrets set "VCAP_SERVICES" "test secret"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
