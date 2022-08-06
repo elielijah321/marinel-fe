@@ -104,7 +104,10 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            return _config["Environment"].ToString();
+            var t = _config["Environment"];
+
+
+            return "Hey";
         }
     }
 }
