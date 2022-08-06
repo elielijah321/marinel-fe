@@ -104,10 +104,12 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            var t = _config["Environment"];
+            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
 
-            return "Hey";
+            var w = config["Environment"];
+
+            return w;
         }
     }
 }
