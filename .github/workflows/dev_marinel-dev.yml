@@ -28,7 +28,7 @@ jobs:
 
       - name: Set User secrets
         run: |
-          cd marinel-fe/Marinel
+          cd Marinel
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
