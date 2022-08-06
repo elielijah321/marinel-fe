@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace SchoolDraftWebsite
 {
@@ -32,7 +33,8 @@ namespace SchoolDraftWebsite
 
             bldr.SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables()
+                .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
         }
     }
 }
