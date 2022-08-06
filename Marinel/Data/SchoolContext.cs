@@ -104,7 +104,12 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            return _config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
+
+
+            var w = config["Environment"];
+
+            return w;
         }
     }
 }
