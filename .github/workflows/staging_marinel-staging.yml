@@ -67,3 +67,4 @@ jobs:
           
       - name: Echo Environment
         run: echo "the env is ${{ env.ASPNETCORE_ENVIRONMENT }}"
+
