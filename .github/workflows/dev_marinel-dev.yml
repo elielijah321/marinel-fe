@@ -28,7 +28,7 @@ jobs:
 
       - name: Set User secrets
         run: |
-          cd Marinel
+          cd marinel-fe/Marinel
           dotnet user-secrets set "VCAP_SERVICES" "test secret"
 
       - name: dotnet publish
