@@ -104,7 +104,7 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            return Environment.GetEnvironmentVariable("name");
+            return _config["Environment"].ToString();
         }
     }
 }
