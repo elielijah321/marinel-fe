@@ -9,14 +9,11 @@ on:
       - dev
   workflow_dispatch:
   
-  
-env:
-  ASPNETCORE_ENVIRONMENT: Development
-
 jobs:
   build:
     runs-on: windows-latest
-
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
     steps:
       - uses: actions/checkout@v2
 
