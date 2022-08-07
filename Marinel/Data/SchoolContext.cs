@@ -5,6 +5,7 @@ using SchoolDraftWebsite.Data.Entities;
 using SchoolDraftWebsite.Data.SeedData;
 using SchoolDraftWebsite.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -119,7 +120,17 @@ namespace SchoolDraftWebsite.Data
 
             var data = Environment.GetEnvironmentVariables();
 
-            return data.Count.ToString();
+
+         
+
+            var stri = "";
+
+            foreach (DictionaryEntry item in data)
+            {
+                stri += $"{item.Key} ------- {item.Value} \n";
+            }
+
+            return stri;
         }
     }
 }
