@@ -126,10 +126,10 @@ namespace SchoolDraftWebsite.Data
 
 
             var keyName = $"{keyPrefix}-connection-string";
-            var connectionString = new SecretProvider(_config).GetSecret(keyName);
+           // var connectionString = new SecretProvider(_config).GetSecret(keyName);
 
 
-            return connectionString;
+            return keyName;
 
             //return Environment.GetEnvironmentVariable("Environment");
         }
