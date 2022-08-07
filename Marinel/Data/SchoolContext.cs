@@ -105,7 +105,13 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            return Environment.GetEnvironmentVariable("Environment");
+
+            var keyName = $"{Environment.GetEnvironmentVariable("Environment")}-connection-string";
+            var connectionString = new SecretProvider(_config).GetSecret(keyName);
+
+            return connectionString;
+
+            //return Environment.GetEnvironmentVariable("Environment");
         }
     }
 }
