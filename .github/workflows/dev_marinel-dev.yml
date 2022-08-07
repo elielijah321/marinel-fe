@@ -29,6 +29,7 @@ jobs:
           cd Marinel
           dotnet user-secrets init
           dotnet user-secrets set "Environment" "Development"
+          dotnet user-secrets list
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
