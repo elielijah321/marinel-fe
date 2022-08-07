@@ -109,7 +109,7 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
+            var config = new ConfigurationBuilder().AddUserSecrets<Startup>().Build();
             // comment
 
             var secretProvider = config.Providers.First();
