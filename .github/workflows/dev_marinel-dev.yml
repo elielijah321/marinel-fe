@@ -44,7 +44,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     env:
-      ASPNETCORE_ENVIRONMENT: Development
+      Environment: Development
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -65,4 +65,4 @@ jobs:
           package: .
           
       - name: Echo Environment
-        run: echo "the env is ${{ env.ASPNETCORE_ENVIRONMENT }}"
+        run: echo "the env is ${{ env.Environment }}"
