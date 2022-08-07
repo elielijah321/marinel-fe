@@ -65,7 +65,4 @@ jobs:
           package: .
           
       - name: Echo Environment
-        run: |
-          cd Marinel
-          dotnet user-secrets init
-          dotnet user-secrets set "Environment" "Development"
+        run: echo "the env is ${{ env.Environment }}"
