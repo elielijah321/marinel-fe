@@ -111,9 +111,13 @@ namespace SchoolDraftWebsite.Data
         {
             var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
             // comment
+
+            var secretProvider = config.Providers.First();
+            secretProvider.TryGet("Environment", out var secretPass);
+
             var w = config["Environment"];
 
-            return w;
+            return secretPass;
         }
     }
 }
