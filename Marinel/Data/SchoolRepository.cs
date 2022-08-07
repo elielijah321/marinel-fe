@@ -255,6 +255,11 @@ namespace SchoolDraftWebsite.Data
         {
             var originalUniformSale = _ctx.PandCUniformSales.FirstOrDefault(b => b.Id == newPAndCUniformSale.Id);
 
+            var classId = _ctx.Students.FirstOrDefault(s => s.Id == newPAndCUniformSale.StudentId).ClassId;
+            var pAndCPrice = _ctx.Classes.FirstOrDefault(c => c.Id == classId).PinkAndCheckUniformPrice;
+
+            newPAndCUniformSale.TotalCollected = pAndCPrice;
+
             originalUniformSale.DatePaid = newPAndCUniformSale.DatePaid;
             originalUniformSale.ReceivedDate = newPAndCUniformSale.ReceivedDate;
             originalUniformSale.CheckYardsQuantity = newPAndCUniformSale.CheckYardsQuantity;
