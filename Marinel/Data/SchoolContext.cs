@@ -113,12 +113,12 @@ namespace SchoolDraftWebsite.Data
             // comment
 
             var secretProvider = config.Providers.First();
-            secretProvider.TryGet("Environment", out var secretPass);
+            //secretProvider.TryGet("Environment", out var secretPass);
 
             var w = config["Environment"];
 
 
-            return config.Providers.Count().ToString();
+            return secretProvider.TryGet("Environment", out var secretPass).ToString();
         }
     }
 }

@@ -44,7 +44,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -58,7 +58,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'marinel-dev'
-          slot-name: 'Production'
+          slot-name: 'Development'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B2A60774ACD74040A8A09A5B1C46960A }}
           package: .
           
