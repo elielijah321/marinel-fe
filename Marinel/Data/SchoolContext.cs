@@ -117,7 +117,6 @@ namespace SchoolDraftWebsite.Data
 
             var w = config["Environment"];
 
-
             return secretProvider.TryGet("Environment", out var secretPass).ToString();
         }
     }
