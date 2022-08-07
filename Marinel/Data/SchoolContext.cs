@@ -5,6 +5,7 @@ using SchoolDraftWebsite.Data.Entities;
 using SchoolDraftWebsite.Data.SeedData;
 using SchoolDraftWebsite.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace SchoolDraftWebsite.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            var envKey = _config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+            var envKey = "test for now";//Environment.GetEnvironmentVariable("Environment");
             var keyPrefix = "";
 
             switch (envKey)
@@ -104,12 +105,7 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-
-
-            var w = config["Environment"];
-
-            return w;
+            return Environment.GetEnvironmentVariable("Environment");
         }
     }
 }
