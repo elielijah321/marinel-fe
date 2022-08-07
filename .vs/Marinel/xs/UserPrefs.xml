@@ -1,11 +1,14 @@
 ﻿<Properties StartupConfiguration="{EBCBBD98-5B3E-4FFE-9342-B836CDFC9835}|SchoolDraftWebsite">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Data/SchoolContext.cs">
+  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Startup.cs">
     <Files>
-      <File FileName="Marinel/Services/SecretProvider.cs" Line="26" Column="32" />
-      <File FileName="Marinel/Data/SchoolRepository.cs" Line="8" Column="48" />
-      <File FileName="Marinel/Pages/Index.cshtml.cs" Line="23" Column="1" />
-      <File FileName="Marinel/Data/SchoolContext.cs" Line="103" Column="10" />
-      <File FileName="Marinel/appsettings.json" Line="1" Column="1" />
+      <File FileName="Marinel/Startup.cs" Line="56" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,6 +18,7 @@
               <Node name="Data" expanded="True" />
               <Node name="Pages" expanded="True" />
               <Node name="Services" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -24,13 +28,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/elijah/Projects/marinel-fe/Marinel/Data/SchoolContext.cs" relfile="Marinel/Data/SchoolContext.cs" line="110" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
