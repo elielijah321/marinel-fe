@@ -110,27 +110,7 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-            // comment
-
-            var secretProvider = config.Providers.First();
-            secretProvider.TryGet("Environment", out var secretPass);
-
-            var w = config["Environment"];
-
-            var data = Environment.GetEnvironmentVariables();
-
-
-         
-
-            var stri = "";
-
-            foreach (DictionaryEntry item in data)
-            {
-                stri += $"{item.Key} ------- {item.Value} \n";
-            }
-
-            return stri;
+            return Environment.GetEnvironmentVariable("Environment"); ;
         }
     }
 }
