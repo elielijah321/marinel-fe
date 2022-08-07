@@ -39,7 +39,7 @@ namespace SchoolDraftWebsite.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            var envKey = "test for now";//Environment.GetEnvironmentVariable("Environment");
+            var envKey = Environment.GetEnvironmentVariable("Environment");
             var keyPrefix = "";
 
             switch (envKey)
