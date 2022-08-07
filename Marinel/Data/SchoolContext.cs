@@ -39,12 +39,7 @@ namespace SchoolDraftWebsite.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-
-            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-            // comment
-            var w = config["Environment"];
-
-            var envKey = w;//_config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+            var envKey = "test for now";//Environment.GetEnvironmentVariable("Environment");
             var keyPrefix = "";
 
             switch (envKey)
@@ -110,7 +105,7 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            return Environment.GetEnvironmentVariable("Environment"); ;
+            return Environment.GetEnvironmentVariable("Environment");
         }
     }
 }

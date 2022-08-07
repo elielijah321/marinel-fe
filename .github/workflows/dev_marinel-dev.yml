@@ -24,13 +24,6 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Set User secrets
-        run: |
-          cd Marinel
-          dotnet user-secrets init
-          dotnet user-secrets set "Environment" "Development"
-          dotnet user-secrets list
-
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -43,8 +36,6 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    env:
-      Environment: Development
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -63,6 +54,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B2A60774ACD74040A8A09A5B1C46960A }}
           package: .
-          
-      - name: Echo Environment
-        run: echo "the env is ${{ env.Environment }}"
