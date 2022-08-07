@@ -109,15 +109,17 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-            var config = new ConfigurationBuilder().AddUserSecrets<Startup>().Build();
+            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
             // comment
 
             var secretProvider = config.Providers.First();
-            //secretProvider.TryGet("Environment", out var secretPass);
+            secretProvider.TryGet("Environment", out var secretPass);
 
             var w = config["Environment"];
 
-            return secretProvider.TryGet("Environment", out var secretPass).ToString();
+            var data = Environment.GetEnvironmentVariables();
+
+            return data.ToString();
         }
     }
 }
