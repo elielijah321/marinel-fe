@@ -119,7 +119,7 @@ namespace SchoolDraftWebsite.Data
 
             var data = Environment.GetEnvironmentVariables();
 
-            return data.ToString();
+            return data.Count.ToString();
         }
     }
 }
