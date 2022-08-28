@@ -105,9 +105,6 @@ namespace SchoolDraftWebsite.Data
 
         public string GetKey()
         {
-
-
-
             var envKey = Environment.GetEnvironmentVariable("Environment");
             var keyPrefix = "";
 

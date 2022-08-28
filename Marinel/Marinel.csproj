@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>bdd3cf49-f114-4c16-a7ec-76b98efe75a7</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SchoolDraftWebsite' " />
   <ItemGroup>
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
     <PackageReference Include="Azure.Identity" Version="1.6.0" />
@@ -15,6 +16,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.4.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\Shared\Class\" />
@@ -24,6 +27,8 @@
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Pages\Shared\Book %28copy%29\" />
     <None Remove="Data\Migrations\" />
+    <None Remove="Microsoft.Identity.Web" />
+    <None Remove="Microsoft.Identity.Web.UI" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Shared\Class\" />
