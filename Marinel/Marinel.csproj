@@ -16,6 +16,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.4.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\Shared\Class\" />
@@ -25,6 +27,8 @@
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Pages\Shared\Book %28copy%29\" />
     <None Remove="Data\Migrations\" />
+    <None Remove="Microsoft.Identity.Web" />
+    <None Remove="Microsoft.Identity.Web.UI" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Shared\Class\" />

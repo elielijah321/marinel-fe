@@ -5,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SchoolDraftWebsite.Data;
 using SchoolDraftWebsite.Services;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System;
 
 namespace SchoolDraftWebsite
 {
@@ -23,7 +27,35 @@ namespace SchoolDraftWebsite
             services.AddDbContext<SchoolContext>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
             services.AddTransient<ISecretProvider, SecretProvider>();
-            services.AddRazorPages();
+
+            var instance = Environment.GetEnvironmentVariable("Instance") ?? Configuration["Instance"];
+            var domain = Environment.GetEnvironmentVariable("Domain") ?? Configuration["Domain"];
+            var clientId = Environment.GetEnvironmentVariable("ClientId") ?? Configuration["ClientId"];
+            var tenantId = Environment.GetEnvironmentVariable("TenantId") ?? Configuration["TenantId"];
+            var signedOutCallbackPath = Environment.GetEnvironmentVariable("SignedOutCallbackPath") ?? Configuration["SignedOutCallbackPath"];
+            var signUpSignInPolicyId = Environment.GetEnvironmentVariable("SignUpSignInPolicyId") ?? Configuration["SignUpSignInPolicyId"];
+
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+            .AddMicrosoftIdentityWebApp(options =>
+            {
+                options.Instance = instance;
+                options.Domain = domain;
+                options.ClientId = clientId;
+                options.TenantId = tenantId;
+                options.SignedOutCallbackPath = signedOutCallbackPath;
+                options.SignUpSignInPolicyId = signUpSignInPolicyId;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = options.DefaultPolicy;
+            });
+
+            services.AddRazorPages(options => {
+                options.Conventions.AllowAnonymousToPage("/Index");
+            })
+            .AddMvcOptions(options => { })
+            .AddMicrosoftIdentityUI();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +77,7 @@ namespace SchoolDraftWebsite
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

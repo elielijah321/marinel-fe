@@ -1,0 +1,28 @@
+﻿@using System.Security.Principal
+
+
+@{
+
+    var host = Context.Request.Host.ToString();
+    var signOutUrl = $"https://marineldev.b2clogin.com/marineldev.onmicrosoft.com/B2C_1_signin/oauth2/v2.0/logout?post_logout_redirect_uri=https://{host}/signout";
+ }
+
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+        {
+        @*
+                <li class="nav-item">
+                <span class="navbar-text text-dark">Hello @User.Identity.Name!</span>
+            </li>
+        *@
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="@signOutUrl">Sign out</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Sign In</a>
+        </li>
+    }
+</ul>
