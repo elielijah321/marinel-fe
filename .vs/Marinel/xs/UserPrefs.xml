@@ -1,14 +1,14 @@
 ﻿<Properties StartupConfiguration="{EBCBBD98-5B3E-4FFE-9342-B836CDFC9835}|SchoolDraftWebsite">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Data/SchoolContext.cs">
     <Files>
-      <File FileName="Marinel/Data/SchoolContext.cs" Line="42" Column="26" />
+      <File FileName="Marinel/Data/SchoolContext.cs" Line="79" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

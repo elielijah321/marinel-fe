@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>bdd3cf49-f114-4c16-a7ec-76b98efe75a7</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SchoolDraftWebsite' " />
   <ItemGroup>
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
     <PackageReference Include="Azure.Identity" Version="1.6.0" />
