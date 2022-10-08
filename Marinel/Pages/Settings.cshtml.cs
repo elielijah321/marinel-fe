@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Azure.Identity;
+using Marinel.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Graph;
 using SchoolDraftWebsite.Data;
 using SchoolDraftWebsite.Data.Entities;
+using SchoolDraftWebsite.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SchoolDraftWebsite.Pages
 {
@@ -11,59 +18,66 @@ namespace SchoolDraftWebsite.Pages
     {
         private readonly ILogger<SettingsPageModel> _logger;
         private readonly ISchoolRepository _schoolRepository;
+        private readonly IMSGraphService _msGraphService;
 
         public List<Class> Classes { get; set; }
         public List<Student> Students { get; set; }
         public List<InventoryType> InventoryTypes { get; set; }
         public List<InventoryItem> InventoryItems { get; set; }
+        public List<User> Users { get; set; }
+        public List<RoleType> RoleTypes = Enum.GetValues(typeof(RoleType)).Cast<RoleType>().ToList();
 
-        public SettingsPageModel(ISchoolRepository schoolRepo, ILogger<SettingsPageModel> logger)
+        public SettingsPageModel(ISchoolRepository schoolRepo, IMSGraphService msGraphService, ILogger<SettingsPageModel> logger)
         {
             _schoolRepository = schoolRepo;
+            _msGraphService = msGraphService;
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            GetPageData();
+            await GetPageData();
+
+            return Page();
         }
 
-        public void OnPost()
+        public async Task OnPost()
         {
             var formType = Request.Form["form-type"].ToString();
-            GetPageData();
+            await GetPageData();
 
             switch (formType)
             {
                 case "student":
                     AddStudent();
                     break;
-
                 case "class":
                     AddClass();
                     break;
-
                 case "edit-class":
                     UpdateClassItem();
                     break;
-
                 case "inventory-type":
                     AddInventoryType();
                     break;
-
                 case "inventory-item":
                     AddInventory();
                     break;
                 case "inventory-item-update":
                     UpdateInventoryItem();
                     break;
-
+                case "user":
+                    await AddUser();
+                    break;
+                case "edit-user":
+                    await UpdateUser();
+                    break;
                 default:
                     break;
             }
 
             
-            GetPageData();
+            await GetPageData();
         }
 
         private void AddStudent()
@@ -93,7 +107,6 @@ namespace SchoolDraftWebsite.Pages
 
             _schoolRepository.AddClass(_class);
         }
-
 
         private void AddInventoryType()
         {
@@ -130,9 +143,56 @@ namespace SchoolDraftWebsite.Pages
             _schoolRepository.AddInventoryItem(inventoryItem);
         }
 
+        private async Task AddUser()
+        {
+            var u_Name = Request.Form["name"].ToString();
+            var u_Username = Request.Form["username"].ToString();
+            var u_Password = Request.Form["password"].ToString();
+            var u_Role = Request.Form["user-role-ddl"].ToString();
+
+            User newUser = new User();
+            newUser.DisplayName = u_Name;
+            newUser.UserPrincipalName = u_Username;
+            newUser.JobTitle = u_Role;
+            newUser.PasswordProfile = new PasswordProfile
+            {
+                ForceChangePasswordNextSignIn = false,
+                Password = u_Password
+            };
+
+
+            var allUsers = await _msGraphService.GetAllUsers();
+
+
+            if (!allUsers.Any(u => u.UserPrincipalName == newUser.UserPrincipalName))
+            {
+                await _msGraphService.AddUser(newUser);
+            }
+            //Should alert the user
+
+        }
+
+        private async Task UpdateUser()
+        {
+            var formIDString = Request.Form[$"form-id"].ToString();
+
+            var u_Name = Request.Form[$"name-{formIDString}"].ToString();
+            var u_Username = Request.Form[$"username-{formIDString}"].ToString();
+            var u_Role = Request.Form[$"user-role-ddl-{formIDString}"].ToString();
+
+            var user = new User
+            {
+                DisplayName = u_Name,
+                UserPrincipalName = u_Username,
+                JobTitle = u_Role
+            };
+
+            await _msGraphService.UpdateUser(formIDString, user);
+        }
+
+
         private void UpdateInventoryItem()
         {
-
             var formIDString = Request.Form[$"form-id"].ToString();
 
 
@@ -162,7 +222,6 @@ namespace SchoolDraftWebsite.Pages
 
         }
 
-
         private void UpdateClassItem()
         {
             var formIDString = Request.Form[$"form-id"].ToString();
@@ -181,12 +240,20 @@ namespace SchoolDraftWebsite.Pages
             _schoolRepository.UpdateClassItem(classItem);
         }
 
-        private void GetPageData()
+        private async Task GetPageData()
         {
             Classes = _schoolRepository.GetAllClasses().ToList();
             Students = _schoolRepository.GetAllStudents().ToList();
             InventoryTypes = _schoolRepository.GetAllInventoryTypes().ToList();
             InventoryItems = _schoolRepository.GetAllInventoryItems().ToList();
+            Users = await _msGraphService.GetAllUsers();
+        }
+
+        public async Task<JsonResult> OnGetDeleteUserById(string userId)
+        {
+            await _msGraphService.DeleteUser(userId);
+
+            return new JsonResult("Ok");
         }
     }
 }

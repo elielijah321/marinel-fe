@@ -1,0 +1,159 @@
+﻿@model SchoolDraftWebsite.Pages.SettingsPageModel
+
+<button id="newUserBtn" type="button" class="btn btn-success">Add New User</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var _user in Model.Users)
+            {
+                <tr>
+                    <td>@_user.DisplayName</td>
+                    <td>
+                        @{
+                            var userName = $"{_user.UserPrincipalName}@marineldev.onmicrosoft.com";
+                            <span>@userName</span>
+                        }
+                    </td>
+                    <td>@_user.JobTitle</td>
+                    <td>
+                        <button type="button" class="btn btn-warning edit-user-btn" value="@_user.Id">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div id="new-user-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new-user-form" method="post">
+
+                    <input type="hidden" name="form-type" value="user" />
+
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-role-ddl" class="form-label">Role</label>
+                        <select id="user-role-ddl" name="user-role-ddl" class="form-select" aria-label="user-role-ddl">
+                            @{
+                                <option value="Select Role Type...">Select Role Type...</option>
+                                @foreach (var role in Model.RoleTypes)
+                                {
+                                    <option value="@role.ToString()">@role.ToString()</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="new-user-submit-btn" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    foreach (var _user in Model.Users)
+    {
+        <div id="edit-user-modal-@_user.Id" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit user</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-user-form-@_user.Id" method="post">
+
+                            <input type="hidden" name="form-type" value="edit-user" />
+                            <input type="hidden" name="form-id" value="@_user.Id" />
+
+                            <div class="form-group">
+                                <label for="name-@_user.Id" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name-@_user.Id" name="name-@_user.Id" value="@_user.DisplayName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username-@_user.Id" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username-@_user.Id" name="username-@_user.Id" value="@_user.UserPrincipalName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user-role-ddl-@_user.Id" class="form-label">Role</label>
+                                <select id="user-role-ddl-@_user.Id" name="user-role-ddl-@_user.Id" class="form-select" aria-label="user-role-ddl-@_user.Id">
+                                    @{
+                                        <option value="Select Role Type...">Select Role Type...</option>
+                                        @foreach (var role in Model.RoleTypes)
+                                        {
+                                            if (_user.JobTitle == role.ToString())
+                                            {
+                                                <option value="@role.ToString()" selected>@role.ToString()</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@role.ToString()">@role.ToString()</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <div style="width:100%;">
+                            <div style="float:left;">
+                                <button id="delete-user-btn-@_user.Id" type="button" class="btn btn-danger delete-user-btn" value="@_user.Id">Delete User</button>
+                            </div>
+                            <div style="float:right;">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary edit-user-submit-btn" value="@_user.Id">Save changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

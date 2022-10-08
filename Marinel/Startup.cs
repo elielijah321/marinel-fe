@@ -9,6 +9,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System;
+using Marinel.Services;
 
 namespace SchoolDraftWebsite
 {
@@ -27,6 +28,7 @@ namespace SchoolDraftWebsite
             services.AddDbContext<SchoolContext>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
             services.AddTransient<ISecretProvider, SecretProvider>();
+            services.AddSingleton<IMSGraphService, MSGraphService>();
 
             var instance = Environment.GetEnvironmentVariable("Instance") ?? Configuration["Instance"];
             var domain = Environment.GetEnvironmentVariable("Domain") ?? Configuration["Domain"];

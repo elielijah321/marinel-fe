@@ -1,23 +1,32 @@
 ﻿<Properties StartupConfiguration="{EBCBBD98-5B3E-4FFE-9342-B836CDFC9835}|SchoolDraftWebsite">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/elijah/Projects/marinel-fe/Marinel/Pages/SignOut.cshtml.cs" relfile="Marinel/Pages/SignOut.cshtml.cs" line="38" column="1" />
+      <Breakpoint file="/Users/elijah/Projects/marinel-fe/Marinel/Pages/Privacy.cshtml.cs" relfile="Marinel/Pages/Privacy.cshtml.cs" line="37" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Data/SchoolContext.cs">
+  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Pages/Settings.cshtml.cs">
     <Files>
-      <File FileName="Marinel/Data/SchoolContext.cs" Line="79" Column="14" />
+      <File FileName="Marinel/Pages/BookChart.cshtml" Line="75" Column="45" />
+      <File FileName="Marinel/Pages/Settings.cshtml" Line="250" Column="18" />
+      <File FileName="Marinel/Pages/Settings.cshtml.cs" Line="252" Column="7" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Marinel" expanded="True">
             <Node name="Marinel" expanded="True">
-              <Node name="Data" expanded="True" />
-              <Node name="Pages" expanded="True" />
-              <Node name="Services" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Shared" expanded="True" />
+                <Node name="FeedingChart.cshtml" expanded="True" />
+                <Node name="Settings.cshtml" expanded="True">
+                  <Node name="Settings.cshtml.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -27,4 +36,5 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
