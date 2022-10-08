@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Principal;
+using Microsoft.Graph;
+using Marinel.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolDraftWebsite.Pages
 {
@@ -20,6 +25,7 @@ namespace SchoolDraftWebsite.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
+
             return Redirect("/");
         }
     }

@@ -9,6 +9,8 @@ using System.Security.Principal;
 using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Azure.Identity;
+using Microsoft.Graph;
 
 namespace SchoolDraftWebsite.Pages
 {

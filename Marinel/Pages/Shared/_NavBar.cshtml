@@ -1,9 +1,12 @@
 ﻿@using System.Security.Principal
+@using SchoolDraftWebsite.Data.Enums
 
 <ul class="navbar-nav flex-grow-1">
-
     @if (User.Identity.IsAuthenticated)
     {
+        var roleClaimType = User.Claims.Where(c => c.Type == "jobTitle").FirstOrDefault();
+        var roleClaim = roleClaimType != null ? roleClaimType.Value : "";
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
         </li>
@@ -19,8 +22,12 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-page="/Uniform">Uniform</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Settings">Settings</a>
-        </li>
+
+        if (roleClaim == RoleType.SuperUser.ToString())
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Settings">Settings</a>
+            </li>
+        }
     }
 </ul>

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Marinel.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SchoolDraftWebsite.Data;
 using SchoolDraftWebsite.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SchoolDraftWebsite.Pages
 {
@@ -21,10 +24,12 @@ namespace SchoolDraftWebsite.Pages
             _schoolRepository = schoolRepo;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             Students = _schoolRepository.GetAllStudents().ToList();
             Env = _schoolRepository.GetKey();
+
+            return Page();
         }
     }
 }

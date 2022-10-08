@@ -18,6 +18,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.4.0" />
     <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Graph" Version="4.37.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\Shared\Class\" />
@@ -29,6 +30,7 @@
     <None Remove="Data\Migrations\" />
     <None Remove="Microsoft.Identity.Web" />
     <None Remove="Microsoft.Identity.Web.UI" />
+    <None Remove="Microsoft.Graph" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Shared\Class\" />
