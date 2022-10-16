@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SchoolDraftWebsite.Migrations
+namespace Marinel.Migrations
 {
-    public partial class initialDB : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace SchoolDraftWebsite.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    PinkAndCheckUniformPrice = table.Column<long>(nullable: false)
+                    PinkAndCheckUniformPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,7 @@ namespace SchoolDraftWebsite.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     NumberEnrolled = table.Column<int>(nullable: false),
                     NumberPaid = table.Column<int>(nullable: false),
-                    AmountReceived = table.Column<long>(nullable: false)
+                    AmountReceived = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,9 +57,9 @@ namespace SchoolDraftWebsite.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(nullable: false),
-                    TotalCollected = table.Column<long>(nullable: false),
+                    TotalCollected = table.Column<decimal>(nullable: false),
                     NumberOfStudents = table.Column<int>(nullable: false),
-                    Revenue = table.Column<long>(nullable: false)
+                    Revenue = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,7 +106,7 @@ namespace SchoolDraftWebsite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExpenseAmount = table.Column<long>(nullable: false),
+                    ExpenseAmount = table.Column<decimal>(nullable: false),
                     ExpenseReason = table.Column<string>(nullable: true),
                     FeedingInfoItemId = table.Column<int>(nullable: false)
                 },
@@ -130,8 +130,8 @@ namespace SchoolDraftWebsite.Migrations
                     Name = table.Column<string>(nullable: true),
                     InventoryTypeId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    CostPerUnit = table.Column<long>(nullable: false),
-                    SellingPrice = table.Column<long>(nullable: false)
+                    CostPerUnit = table.Column<decimal>(nullable: false),
+                    SellingPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,11 +154,11 @@ namespace SchoolDraftWebsite.Migrations
                     ReceivedDate = table.Column<DateTime>(nullable: false),
                     CheckYardsQuantity = table.Column<int>(nullable: false),
                     PinkYardsQuantity = table.Column<int>(nullable: false),
-                    Revenue = table.Column<long>(nullable: false),
                     PaidInFull = table.Column<bool>(nullable: false),
                     Received = table.Column<bool>(nullable: false),
                     SeamstressPaid = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
+                    TotalCollected = table.Column<decimal>(nullable: false),
                     StudentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -180,7 +180,7 @@ namespace SchoolDraftWebsite.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(nullable: false),
                     NoOfBooksSold = table.Column<int>(nullable: false),
-                    Revenue = table.Column<long>(nullable: false),
+                    Revenue = table.Column<decimal>(nullable: false),
                     InventoryItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -203,7 +203,7 @@ namespace SchoolDraftWebsite.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     StockDate = table.Column<DateTime>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Revenue = table.Column<long>(nullable: false),
+                    Revenue = table.Column<decimal>(nullable: false),
                     PaidInFull = table.Column<bool>(nullable: false),
                     Received = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
@@ -232,21 +232,21 @@ namespace SchoolDraftWebsite.Migrations
                 columns: new[] { "Id", "Name", "PinkAndCheckUniformPrice" },
                 values: new object[,]
                 {
-                    { 1, "Creche", 95L },
-                    { 15, "JHS 3", 110L },
-                    { 14, "JHS 2", 110L },
-                    { 13, "JHS 1", 110L },
-                    { 12, "CLASS 6", 105L },
-                    { 11, "CLASS 5", 105L },
-                    { 9, "CLASS 3", 105L },
-                    { 10, "CLASS 4", 105L },
-                    { 7, "CLASS 1", 105L },
-                    { 6, "KG2", 100L },
-                    { 5, "KG1", 100L },
-                    { 4, "Nursery 2B", 100L },
-                    { 3, "Nursery 2A", 100L },
-                    { 2, "Nursery", 100L },
-                    { 8, "CLASS 2", 105L }
+                    { 1, "Creche", 95m },
+                    { 15, "JHS 3", 110m },
+                    { 14, "JHS 2", 110m },
+                    { 13, "JHS 1", 110m },
+                    { 12, "CLASS 6", 105m },
+                    { 11, "CLASS 5", 105m },
+                    { 9, "CLASS 3", 105m },
+                    { 10, "CLASS 4", 105m },
+                    { 7, "CLASS 1", 105m },
+                    { 6, "KG2", 100m },
+                    { 5, "KG1", 100m },
+                    { 4, "Nursery 2B", 100m },
+                    { 3, "Nursery 2A", 100m },
+                    { 2, "Nursery", 100m },
+                    { 8, "CLASS 2", 105m }
                 });
 
             migrationBuilder.InsertData(
@@ -270,14 +270,14 @@ namespace SchoolDraftWebsite.Migrations
                 columns: new[] { "Id", "CostPerUnit", "InventoryTypeId", "Name", "Quantity", "SellingPrice" },
                 values: new object[,]
                 {
-                    { 1, 10L, 1, "SMALL NOTEBOOK", 100, 10L },
-                    { 2, 10L, 1, "MEDIUM NOTEBOOK", 100, 10L },
-                    { 3, 10L, 1, "EXERCISE BOOKS", 100, 10L },
-                    { 4, 10L, 2, "CRECHE UNIFORM", 100, 10L },
-                    { 5, 10L, 2, "WEDNESDAY WEAR UNIFORM", 100, 10L },
-                    { 6, 10L, 2, "FRIDAY WEAR UNIFORM", 100, 10L },
-                    { 7, 0L, 3, "PINK MATERIAL", 100, 0L },
-                    { 8, 0L, 3, "CKECK MATERIAL", 100, 0L }
+                    { 1, 10m, 1, "SMALL NOTEBOOK", 100, 10m },
+                    { 2, 10m, 1, "MEDIUM NOTEBOOK", 100, 10m },
+                    { 3, 10m, 1, "EXERCISE BOOKS", 100, 10m },
+                    { 4, 10m, 2, "CRECHE UNIFORM", 100, 10m },
+                    { 5, 10m, 2, "WEDNESDAY WEAR UNIFORM", 100, 10m },
+                    { 6, 10m, 2, "FRIDAY WEAR UNIFORM", 100, 10m },
+                    { 7, 0m, 3, "PINK MATERIAL", 100, 0m },
+                    { 8, 0m, 3, "CHECK MATERIAL", 100, 0m }
                 });
 
             migrationBuilder.InsertData(

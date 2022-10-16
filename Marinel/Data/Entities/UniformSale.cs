@@ -10,7 +10,7 @@ namespace SchoolDraftWebsite.Data.Entities
         public DateTime Date { get; set; }
         public DateTime StockDate { get; set; }
         public int Quantity { get; set; }
-        public long Revenue { get; set; }
+        public decimal Revenue { get; set; }
         public bool PaidInFull { get; set; }
         public bool Received { get; set; }
         public string Notes { get; set; }

@@ -11,9 +11,9 @@ namespace SchoolDraftWebsite.Data.Entities
         [Key]
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public long TotalCollected { get; set; }
+        public decimal TotalCollected { get; set; }
         public int NumberOfStudents { get; set; }
-        public long Revenue { get; set; }
+        public decimal Revenue { get; set; }
 
         [ForeignKey("FeedingInfoItemId")]
         public ICollection<FeedingExpense> FeedingExpenses { get; set; }
