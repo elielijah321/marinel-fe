@@ -39,6 +39,11 @@ namespace SchoolDraftWebsite.Data
         {
             base.OnConfiguring(optionsBuilder);
 
+            //
+
+
+
+            /*
             var envKey = Environment.GetEnvironmentVariable("Environment");
             var keyPrefix = "";
 
@@ -57,6 +62,15 @@ namespace SchoolDraftWebsite.Data
 
             var keyName = $"{keyPrefix}-connection-string";
             var connectionString = new SecretProvider(_config).GetSecret(keyName);
+
+
+
+
+            */
+
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionString") ?? _config["ConnectionString"];
+
+
             optionsBuilder.UseSqlServer(connectionString);
         }
 
