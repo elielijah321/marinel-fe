@@ -13,7 +13,7 @@ namespace SchoolDraftWebsite.Data.Entities
         public DateTime Date { get; set; }
         public int NumberEnrolled { get; set; }
         public int NumberPaid { get; set; }
-        public long AmountReceived { get; set; }
+        public decimal AmountReceived { get; set; }
 
         [NotMapped]
         public virtual Term Term { get; set; }

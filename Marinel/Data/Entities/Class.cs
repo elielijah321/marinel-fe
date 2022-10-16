@@ -9,7 +9,7 @@ namespace SchoolDraftWebsite.Data.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public long PinkAndCheckUniformPrice { get; set; }
+        public decimal PinkAndCheckUniformPrice { get; set; }
 
         [ForeignKey("ClassId")]
         public virtual ICollection<Student> Students { get; set; }

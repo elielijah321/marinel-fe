@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDraftWebsite.Data;
 
-namespace SchoolDraftWebsite.Migrations
+namespace Marinel.Migrations
 {
     [DbContext(typeof(SchoolContext))]
     partial class SchoolContextModelSnapshot : ModelSnapshot
@@ -35,8 +35,8 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<int>("NoOfBooksSold")
                         .HasColumnType("int");
 
-                    b.Property<long>("Revenue")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Revenue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -55,8 +55,8 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PinkAndCheckUniformPrice")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("PinkAndCheckUniformPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -67,91 +67,91 @@ namespace SchoolDraftWebsite.Migrations
                         {
                             Id = 1,
                             Name = "Creche",
-                            PinkAndCheckUniformPrice = 95L
+                            PinkAndCheckUniformPrice = 95m
                         },
                         new
                         {
                             Id = 2,
                             Name = "Nursery",
-                            PinkAndCheckUniformPrice = 100L
+                            PinkAndCheckUniformPrice = 100m
                         },
                         new
                         {
                             Id = 3,
                             Name = "Nursery 2A",
-                            PinkAndCheckUniformPrice = 100L
+                            PinkAndCheckUniformPrice = 100m
                         },
                         new
                         {
                             Id = 4,
                             Name = "Nursery 2B",
-                            PinkAndCheckUniformPrice = 100L
+                            PinkAndCheckUniformPrice = 100m
                         },
                         new
                         {
                             Id = 5,
                             Name = "KG1",
-                            PinkAndCheckUniformPrice = 100L
+                            PinkAndCheckUniformPrice = 100m
                         },
                         new
                         {
                             Id = 6,
                             Name = "KG2",
-                            PinkAndCheckUniformPrice = 100L
+                            PinkAndCheckUniformPrice = 100m
                         },
                         new
                         {
                             Id = 7,
                             Name = "CLASS 1",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 8,
                             Name = "CLASS 2",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 9,
                             Name = "CLASS 3",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 10,
                             Name = "CLASS 4",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 11,
                             Name = "CLASS 5",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 12,
                             Name = "CLASS 6",
-                            PinkAndCheckUniformPrice = 105L
+                            PinkAndCheckUniformPrice = 105m
                         },
                         new
                         {
                             Id = 13,
                             Name = "JHS 1",
-                            PinkAndCheckUniformPrice = 110L
+                            PinkAndCheckUniformPrice = 110m
                         },
                         new
                         {
                             Id = 14,
                             Name = "JHS 2",
-                            PinkAndCheckUniformPrice = 110L
+                            PinkAndCheckUniformPrice = 110m
                         },
                         new
                         {
                             Id = 15,
                             Name = "JHS 3",
-                            PinkAndCheckUniformPrice = 110L
+                            PinkAndCheckUniformPrice = 110m
                         });
                 });
 
@@ -162,8 +162,8 @@ namespace SchoolDraftWebsite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AmountReceived")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("AmountReceived")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -208,8 +208,8 @@ namespace SchoolDraftWebsite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ExpenseAmount")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("ExpenseAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ExpenseReason")
                         .HasColumnType("nvarchar(max)");
@@ -237,11 +237,11 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<int>("NumberOfStudents")
                         .HasColumnType("int");
 
-                    b.Property<long>("Revenue")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Revenue")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("TotalCollected")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("TotalCollected")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -255,8 +255,8 @@ namespace SchoolDraftWebsite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CostPerUnit")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("CostPerUnit")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("InventoryTypeId")
                         .HasColumnType("int");
@@ -267,8 +267,8 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<long>("SellingPrice")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -280,74 +280,74 @@ namespace SchoolDraftWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 1,
                             Name = "SMALL NOTEBOOK",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 2,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 1,
                             Name = "MEDIUM NOTEBOOK",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 3,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 1,
                             Name = "EXERCISE BOOKS",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 4,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 2,
                             Name = "CRECHE UNIFORM",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 5,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 2,
                             Name = "WEDNESDAY WEAR UNIFORM",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 6,
-                            CostPerUnit = 10L,
+                            CostPerUnit = 10m,
                             InventoryTypeId = 2,
                             Name = "FRIDAY WEAR UNIFORM",
                             Quantity = 100,
-                            SellingPrice = 10L
+                            SellingPrice = 10m
                         },
                         new
                         {
                             Id = 7,
-                            CostPerUnit = 0L,
+                            CostPerUnit = 0m,
                             InventoryTypeId = 3,
                             Name = "PINK MATERIAL",
                             Quantity = 100,
-                            SellingPrice = 0L
+                            SellingPrice = 0m
                         },
                         new
                         {
                             Id = 8,
-                            CostPerUnit = 0L,
+                            CostPerUnit = 0m,
                             InventoryTypeId = 3,
                             Name = "CHECK MATERIAL",
                             Quantity = 100,
-                            SellingPrice = 0L
+                            SellingPrice = 0m
                         });
                 });
 
@@ -422,8 +422,8 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<long>("TotalCollected")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("TotalCollected")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -496,8 +496,8 @@ namespace SchoolDraftWebsite.Migrations
                     b.Property<bool>("Received")
                         .HasColumnType("bit");
 
-                    b.Property<long>("Revenue")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Revenue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StockDate")
                         .HasColumnType("datetime2");

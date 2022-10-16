@@ -38,39 +38,7 @@ namespace SchoolDraftWebsite.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
-            //
-
-
-
-            /*
-            var envKey = Environment.GetEnvironmentVariable("Environment");
-            var keyPrefix = "";
-
-            switch (envKey)
-            {
-                case "Development":
-                    keyPrefix = "dev";
-                    break;
-                case "Staging":
-                    keyPrefix = "staging";
-                    break;
-                default:
-                    keyPrefix = "dev";
-                    break;
-            }
-
-            var keyName = $"{keyPrefix}-connection-string";
-            var connectionString = new SecretProvider(_config).GetSecret(keyName);
-
-
-
-
-            */
-
             var connectionString = Environment.GetEnvironmentVariable("ConnectionString") ?? _config["ConnectionString"];
-
-
             optionsBuilder.UseSqlServer(connectionString);
         }
 

@@ -1,28 +1,31 @@
 ﻿<Properties StartupConfiguration="{EBCBBD98-5B3E-4FFE-9342-B836CDFC9835}|SchoolDraftWebsite">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Pages/Settings.cshtml.cs">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/elijah/Projects/marinel-fe/Marinel/Pages/SignOut.cshtml.cs" relfile="Marinel/Pages/SignOut.cshtml.cs" line="38" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Marinel/Data/Entities/UniformSale.cs">
     <Files>
-      <File FileName="Marinel/Pages/BookChart.cshtml" Line="75" Column="45" />
-      <File FileName="Marinel/Services/MSGraphService.cs" Line="17" Column="40" />
-      <File FileName="Marinel/Pages/Shared/User/_UserList.cshtml" Line="23" Column="29" />
       <File FileName="Marinel/Startup.cs" Line="20" Column="43" />
-      <File FileName="Marinel/Data/SchoolContext.cs" Line="47" Column="36" />
       <File FileName="Marinel/Pages/Settings.cshtml.cs" Line="131" Column="30" />
+      <File FileName="Marinel/Data/SchoolRepository.cs" Line="1" Column="1" />
+      <File FileName="Marinel/Data/SchoolContext.cs" Line="42" Column="13" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Marinel" expanded="True">
             <Node name="Marinel" expanded="True">
-              <Node name="Data" expanded="True">
-                <Node name="Enums" expanded="True" />
-                <Node name="SeedData" expanded="True" />
-              </Node>
               <Node name="Pages" expanded="True">
+                <Node name="Shared" expanded="True">
+                  <Node name="User" expanded="True" />
+                </Node>
                 <Node name="FeedingChart.cshtml" expanded="True" />
                 <Node name="Privacy.cshtml" expanded="True" />
-                <Node name="Settings.cshtml" expanded="True">
-                  <Node name="Settings.cshtml.cs" selected="True" />
-                </Node>
+                <Node name="Settings.cshtml" expanded="True" />
               </Node>
               <Node name="Services" expanded="True" />
               <Node name="wwwroot" expanded="True">
@@ -37,13 +40,5 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/elijah/Projects/marinel-fe/Marinel/Pages/SignOut.cshtml.cs" relfile="Marinel/Pages/SignOut.cshtml.cs" line="38" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Marinel PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

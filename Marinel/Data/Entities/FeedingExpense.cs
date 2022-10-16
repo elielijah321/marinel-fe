@@ -10,7 +10,7 @@ namespace SchoolDraftWebsite.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-        public long ExpenseAmount { get; set; }
+        public decimal ExpenseAmount { get; set; }
         public string ExpenseReason { get; set; }
 
         public int FeedingInfoItemId { get; set; }

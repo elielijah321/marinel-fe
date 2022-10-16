@@ -27,10 +27,10 @@
     <None Remove="Pages\Shared\Book\" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Pages\Shared\Book %28copy%29\" />
-    <None Remove="Data\Migrations\" />
     <None Remove="Microsoft.Identity.Web" />
     <None Remove="Microsoft.Identity.Web.UI" />
     <None Remove="Microsoft.Graph" />
+    <None Remove="Data\Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Shared\Class\" />

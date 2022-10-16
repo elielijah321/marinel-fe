@@ -15,7 +15,7 @@ namespace SchoolDraftWebsite.Data.Entities
         public bool Received { get; set; }
         public bool SeamstressPaid { get; set; }
         public string Notes { get; set; }
-        public long TotalCollected { get; set; }
+        public decimal TotalCollected { get; set; }
 
 
         //public int InventoryItemId { get; set; }
